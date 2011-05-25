@@ -1,0 +1,17 @@
+<script type='text/javascript' src='http://localhost:1337/faye.js'> </script>
+
+<script type="text/javascript">
+  var client = new Faye.Client('http://localhost:1337/faye');
+
+  client.subscribe( '/messages', function(messages) {
+      alert( 'Got a message: ' + messages.text );
+  });
+
+  function send() { 
+    client.publish( '/messages', { text: 'on client' } );
+  }
+
+  // setInterval( 'send', 3000 );
+</script>
+
+it works!!!
