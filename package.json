@@ -1,0 +1,28 @@
+{
+  "name":         "mothra",
+  "version":      "0.0.0",
+  "description":  "Cool Inventory System.",
+  "keywords":     [ "inventory", "it" ],
+  "maintainers":  [ {
+    "name":   "Zac Kleinpeter",
+    "email":  "zac@kleinpeter.org"
+  }],
+  "bugs": {
+    "mail": "zac@kleinpeter.com"
+  },
+  "repositories": [ {
+      "type":  "git",
+      "url":   "git@github.com:Praeses/mothra.git"
+  } ],
+  "engine": "node >= 0.5",
+  "dependencies": {
+    "faye":         "0.6.0",
+    "node-static":  "0.5.6"
+  },
+  "devDependencies": {
+    "coffee-script": "1.1.1"
+  },
+  "os":       ["linux", "macos"],
+  "cpu":      ["x86", "x86_64"],
+  "engines":  ["v8", "ejs", "node", "rhino"]
+}
