@@ -49,7 +49,7 @@ EquipmentView = Backbone.View.extend
     @model.view = @
 
   render: ->
-    $(@el).html(@template(@model.toJSON()))
+    $(@el).html @template @model.toJSON()
     @setContent()
     return @
 
