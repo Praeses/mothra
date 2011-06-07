@@ -31,7 +31,7 @@ EquipmentList = Backbone.Collection.extend
   comparator: (equipment) ->
     equipment.get 'order'
 
-Equipments = new EquipmentList()
+Inventory = new EquipmentList()
 
 EquipmentView = Backbone.View.extend
   tagName: 'li'
@@ -39,9 +39,9 @@ EquipmentView = Backbone.View.extend
 
   events:
     'click .check':               'toggleDone'
-    'dblclick div.todo-content':  'edit'
-    'click span.todo-destroy':    'clear'
-    'keypress .todo-input':       'updateOnEnter'
+    'dblclick div.equipment-content':  'edit'
+    'click span.equipment-destroy':    'clear'
+    'keypress .equipment-input':       'updateOnEnter'
 
   initialize: ->
     _.bindAll @, 'render', 'close'
@@ -55,8 +55,8 @@ EquipmentView = Backbone.View.extend
 
   setContent: ->
     content = @model.get 'content'
-    @$('.todo-content').text content
-    @input = @$ '.todo-input'
+    @$('.equipment-content').text content
+    @input = @$ '.equipment-input'
     @input.bind 'blur', @close
     @input.val content
 
@@ -81,53 +81,53 @@ EquipmentView = Backbone.View.extend
     @model.clear()
 
 AppView = Backbone.View.extend
-  el: $ '#todoapp'
+  el: $ '#equipmentapp'
 
   statsTemplate: _.template $('#stats-template').html()
 
   events:
-    'keypress #new-todo':   'createOnEnter'
-    'keyup #new-todo':      'showTooltip'
-    'click .todo-clear a':  'clearCompleted'
+    'keypress #new-equipment':   'createOnEnter'
+    'keyup #new-equipment':      'showTooltip'
+    'click .equipment-clear a':  'clearCompleted'
 
   initialize: ->
     _.bindAll @, 'addOne', 'addAll', 'render'
-    @input = @$ '#new-todo'
+    @input = @$ '#new-equipment'
 
-    Equipments.bind 'add', @addOne
-    Equipments.bind 'refresh', @addAll
-    Equipments.bind 'all', @render
+    Inventory.bind 'add', @addOne
+    Inventory.bind 'refresh', @addAll
+    Inventory.bind 'all', @render
 
-    Equipments.fetch()
+    Inventory.fetch()
 
   render: ->
-    done = Equipments.done().length
-    @$('#todo-stats').html(
+    done = Inventory.done().length
+    @$('#equipment-stats').html(
       @statsTemplate 
-        total:      Equipments.length
-        done:       Equipments.done().length
-        remaining:  Equipments.remaining().length
+        total:      Inventory.length
+        done:       Inventory.done().length
+        remaining:  Inventory.remaining().length
     )
 
   addOne: (equipment) ->
     view = new EquipmentView model: equipment
-    @$('#todo-list').append view.render().el
+    @$('#equipment-list').append view.render().el
 
   addAll: ->
-    Equipments.each @addOne
+    Inventory.each @addOne
 
   newAttributes: ->
     content:  @input.val()
-    order:    Equipments.nextOrder()
+    order:    Inventory.nextOrder()
     done:     false
 
   createOnEnter: (e) ->
     return null unless e.keyCode == 13
-    Equipments.create @newAttributes()
+    Inventory.create @newAttributes()
     @input.val ''
 
   clearCompleted: ->
-    _.each Equipments.done(), (equipment) -> equipment.clear()
+    _.each Inventory.done(), (equipment) -> equipment.clear()
     false
 
   showTooltip: (e) ->

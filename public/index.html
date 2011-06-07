@@ -19,26 +19,26 @@
       <h1 id="Mothra">MOTHRA</h1>
     </header>
 
-    <!-- Todo App Interface --> 
+    <!-- equipment App Interface --> 
 
-    <div id="todoapp"> 
+    <div id="equipmentapp"> 
 
       <div class="title"> 
-        <h1>Todos</h1> 
+        <h1>Inventory</h1> 
       </div> 
 
       <div class="content"> 
 
-        <div id="create-todo"> 
-          <input id="new-todo" placeholder="What needs to be done?" type="text" /> 
+        <div id="create-equipment"> 
+          <input id="new-equipment" placeholder="What needs to be done?" type="text" /> 
           <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
         </div> 
 
-        <div id="todos"> 
-          <ul id="todo-list"></ul> 
+        <div id="equipments"> 
+          <ul id="equipment-list"></ul> 
         </div> 
 
-        <div id="todo-stats"></div> 
+        <div id="equipment-stats"></div> 
 
       </div> 
 
@@ -47,27 +47,27 @@
     <!-- Templates --> 
 
     <script type="text/template" id="item-template"> 
-      <div class="todo <%= done ? 'done' : '' %>">
+      <div class="equipment <%= done ? 'done' : '' %>">
         <div class="display">
           <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
-          <div class="todo-content"></div>
-          <span class="todo-destroy"></span>
+          <div class="equipment-content"></div>
+          <span class="equipment-destroy"></span>
         </div>
         <div class="edit">
-          <input class="todo-input" type="text" value="" />
+          <input class="equipment-input" type="text" value="" />
         </div>
       </div>
     </script> 
 
     <script type="text/template" id="stats-template"> 
       <% if (total) { %>
-        <span class="todo-count">
+        <span class="equipment-count">
           <span class="number"><%= remaining %></span>
           <span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left.
         </span>
         <% } %>
       <% if (done) { %>
-        <span class="todo-clear">
+        <span class="equipment-clear">
           <a href="#">
             Clear <span class="number-done"><%= done %></span>
             completed <span class="word-done"><%= done == 1 ? 'item' : 'items' %></span>

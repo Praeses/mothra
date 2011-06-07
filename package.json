@@ -24,8 +24,9 @@
     "redis":        "0.6.0"
   },
   "devDependencies": {
-    "coffee-script": "1.1.1",
-    "jasmine-node": "1.0.6"
+    "coffee-script":  "1.1.1",
+    "docco":          "0.3.0",
+    "jasmine-node":   "1.0.6"
   },
   "os":       ["linux", "macos"],
   "cpu":      ["x86", "x86_64"],
