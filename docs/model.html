@@ -1,0 +1,39 @@
+<!DOCTYPE html>  <html> <head>   <title>model.coffee</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="model.html">                 model.coffee               </a>                                           <a class="source" href="docco.html">                 docco.coffee               </a>                                           <a class="source" href="CoffeeSpec.html">                 CoffeeSpec.coffee               </a>                                           <a class="source" href="app.html">                 app.coffee               </a>                                           <a class="source" href="coffee_spec.html">                 coffee_spec.coffee               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               model.coffee             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <p>Quick Backbone/CoffeeScript tests to make sure that inheritance
+works correctly.</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="p">{</span><span class="nx">ok</span><span class="p">,</span> <span class="nx">equal</span><span class="p">,</span> <span class="nx">deepEqual</span><span class="p">}</span>      <span class="o">=</span> <span class="nx">require</span> <span class="s1">&#39;assert&#39;</span>
+<span class="p">{</span><span class="nx">Model</span><span class="p">,</span> <span class="nx">Collection</span><span class="p">,</span> <span class="nx">Events</span><span class="p">}</span> <span class="o">=</span> <span class="nx">require</span> <span class="s1">&#39;../backbone&#39;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <p>Patch <code>ok</code> to store a count of passed tests...</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nv">count = </span><span class="mi">0</span>
+<span class="nv">oldOk = </span><span class="nx">ok</span>
+<span class="nv">ok = </span><span class="o">-&gt;</span>
+  <span class="nx">oldOk</span> <span class="nx">arguments</span><span class="p">...</span>
+  <span class="nx">count</span><span class="o">++</span>
+
+
+<span class="k">class</span> <span class="nx">Document</span> <span class="k">extends</span> <span class="nx">Model</span>
+
+  <span class="nv">fullName: </span><span class="o">-&gt;</span>
+    <span class="nx">@get</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">@get</span><span class="p">(</span><span class="s1">&#39;surname&#39;</span><span class="p">)</span>
+
+<span class="nv">tempest = </span><span class="k">new</span> <span class="nx">Document</span>
+  <span class="nv">id      : </span><span class="s1">&#39;1-the-tempest&#39;</span><span class="p">,</span>
+  <span class="nv">title   : </span><span class="s2">&quot;The Tempest&quot;</span><span class="p">,</span>
+  <span class="nv">name    : </span><span class="s2">&quot;William&quot;</span>
+  <span class="nv">surname : </span><span class="s2">&quot;Shakespeare&quot;</span>
+  <span class="nv">length  : </span><span class="mi">123</span>
+
+<span class="nx">ok</span> <span class="nx">tempest</span><span class="p">.</span><span class="nx">fullName</span><span class="p">()</span> <span class="o">is</span> <span class="s2">&quot;William Shakespeare&quot;</span>
+<span class="nx">ok</span> <span class="nx">tempest</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="mi">123</span>
+
+
+<span class="k">class</span> <span class="nx">ProperDocument</span> <span class="k">extends</span> <span class="nx">Document</span>
+
+  <span class="nv">fullName: </span><span class="o">-&gt;</span>
+    <span class="s2">&quot;Mr. &quot;</span> <span class="o">+</span> <span class="k">super</span>
+
+<span class="nv">properTempest = </span><span class="k">new</span> <span class="nx">ProperDocument</span> <span class="nx">tempest</span><span class="p">.</span><span class="nx">attributes</span>
+
+<span class="nx">ok</span> <span class="nx">properTempest</span><span class="p">.</span><span class="nx">fullName</span><span class="p">()</span> <span class="o">is</span> <span class="s2">&quot;Mr. William Shakespeare&quot;</span>
+<span class="nx">ok</span> <span class="nx">properTempest</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;length&#39;</span><span class="p">)</span> <span class="o">is</span> <span class="mi">123</span>
+
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span> <span class="s2">&quot;passed #{count} tests&quot;</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
