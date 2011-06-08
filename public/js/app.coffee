@@ -2,7 +2,7 @@
 # Equipment has several fiels they are:
 #   - asset_tag_number 
 #   - make 
-#   - model 
+#   - model_number 
 #   - serial_number 
 #   - who_has_it
 #   - notes 
@@ -11,13 +11,11 @@
 # and equipment must be returned.
 Equipment = Backbone.Model.extend
 
-  initialize: ->
-
   checkout: (user)->
-    # We are only going to allow checking out a piece of equipment 
-    # if it isn't already checked out.
-    # NOTE: This could change for simplicity
-    @save who_has_it: user !@get 'who_has_it'
+      # We are only going to allow checking out a piece of equipment 
+      # if it isn't already checked out.
+      # NOTE: This could change for simplicity
+      @save who_has_it: user !@get 'who_has_it'
 
 # Equipment List maintains the CRUD for equipment.  In this model the
 # `Store` is defined.  Right now it is a local store which will need to be
@@ -49,10 +47,13 @@ EquipmentView = Backbone.View.extend
   template: _.template $('#item-template').html()
 
   events:
-    'click .check':                    'toggleDone'
-    'dblclick div.equipment-content':  'edit'
-    'click span.equipment-destroy':    'clear'
-    'keypress .equipment-input':       'updateOnEnter'
+    'dblclick div.equipment':  'edit'
+    'keypress .asset_tag_number':      'updateOnEnter'
+    'keypress .make':                  'updateOnEnter'
+    'keypress .model_number':          'updateOnEnter'
+    'keypress .serial_number':         'updateOnEnter'
+    'keypress .notes':                 'updateOnEnter'
+    'keypress .who_has_it':            'updateOnEnter'
 
   initialize: ->
     _.bindAll @, 'render', 'close'
@@ -66,26 +67,56 @@ EquipmentView = Backbone.View.extend
     return @
 
   setContent: ->
-    content = @model.get 'content'
-    @$('.equipment-content').text content
-    @input = @$ '.equipment-input'
-    @input.bind 'blur', @close
-    @input.val content
+    @$('.equipment-asset_tag_number').text @model.get 'asset_tag_number'
+    @$('.equipment-make').text @model.get 'make'
+    @$('.equipment-model_number').text @model.get 'model_number'
+    @$('.equipment-serial_number').text @model.get 'serial_number'
+    @$('.equipment-who_has_it').text @model.get 'who_has_it'
+    @$('.equipment-notes').text @model.get 'notes'
+
+    @asset_tag_number = @$ '.asset_tag_number'
+    @make             = @$ '.make'
+    @model_number     = @$ '.model_number'
+    @serial_number    = @$ '.serial_number'
+    @who_has_it       = @$ '.who_has_it'
+    @notes            = @$ '.notes'
+
+    #@asset_tag_number.bind 'blur', @close
+    #@make.bind 'blur', @close
+    #@model_number.bind 'blur', @close
+    #@serial_number.bind 'blur', @close
+    #@who_has_it.bind 'blur', @close
+    #@notes.bind 'blur', @close
+
+    @asset_tag_number.val @model.get 'asset_tag_number'
+    @make.val @model.get 'make'
+    @model_number.val @model.get 'model_number'
+    @serial_number.val @model.get 'serial_number'
+    @who_has_it.val @model.get 'who_has_it'
+    @notes.val @model.get 'notes'
+
 
   toggleDone: ->
     @model.toggle()
   
   edit: ->
     $(@el).addClass 'editing'
-    @input.focus()
+
+  updatedAttributes: ->
+    asset_tag_number:  @asset_tag_number.val()
+    make:              @make.val()
+    model_number:      @model_number.val()
+    serial_number:     @serial_number.val()
+    notes:             @notes.val()
+    who_has_it:        @who_has_it.val()
 
   close: ->
-    @model.save content: @input.val()
+    @model.save @updatedAttributes()
     $(@el).removeClass 'editing'
 
   updateOnEnter: (e) ->
     # Hooking in the enter key
-    @close if e.keyCode == 13
+    @close() if e.keyCode is 13
 
   remove: ->
     $(@el).remove()
@@ -99,15 +130,18 @@ AppView = Backbone.View.extend
   statsTemplate: _.template $('#stats-template').html()
 
   events:
-    'keypress #new-equipment':   'createOnEnter'
-    'keyup #new-equipment':      'showTooltip'
-    'click .equipment-clear a':  'clearCompleted'
+    'keypress #asset_tag_number':  'createOnEnter'
+    'keypress #make':              'createOnEnter'
+    'keypress #model_number':      'createOnEnter'
+    'keypress #serial_number':     'createOnEnter'
+    'keypress #notes':             'createOnEnter'
+    'keypress #who_has_it':        'createOnEnter'
 
   initialize: ->
     _.bindAll @, 'addOne', 'addAll', 'render'
     @asset_tag_number = @$ '#asset_tag_number'
     @make             = @$ '#make'
-    @model            = @$ '#model'
+    @model_number            = @$ '#model_number'
     @serial_number    = @$ '#serial_number'
     @notes            = @$ '#notes'
     @who_has_it       = @$ '#who_has_it'
@@ -118,14 +152,6 @@ AppView = Backbone.View.extend
 
     Inventory.fetch()
 
-  render: ->
-    done = Inventory.done().length
-    @$('#equipment-stats').html(
-      @statsTemplate 
-        total:      Inventory.length
-        done:       Inventory.done().length
-        remaining:  Inventory.remaining().length
-    )
 
   addOne: (equipment) ->
     view = new EquipmentView model: equipment
@@ -135,29 +161,31 @@ AppView = Backbone.View.extend
     Inventory.each @addOne
 
   newAttributes: ->
-    asset_tag_number: 
-    make: 
-    model: 
-    serial_number: 
-    notes: 
-    who_has_it: 
-    order:    Inventory.nextOrder()
+    asset_tag_number:  @$( '#asset_tag_number' ).val()
+    make:              @$( '#make' ).val()
+    model_number:      @$( '#model_number' ).val()
+    serial_number:     @$( '#serial_number' ).val()
+    notes:             @$( '#notes' ).val()
+    who_has_it:        @$( '#who_has_it' ).val()
+    order:             Inventory.nextOrder()
 
   createOnEnter: (e) ->
-    return null unless e.keyCode == 13
+    return null unless e.keyCode is 13
     Inventory.create @newAttributes()
-    @input.val ''
+    @asset_tag_number.val('') 
+    @make.val('')             
+    @model_number.val('')           
+    @serial_number.val('')
+    @notes.val('')
+    @who_has_it.val('')     
 
-  clearCompleted: ->
-    _.each Inventory.done(), (equipment) -> equipment.clear()
-    false
 
   showTooltip: (e) ->
     tooltip = @$ '.ui-tooltip-top'
     val = @input.val()
     tooltip.hide()
     clearTimeout @tooltipTimeout if @tooltipTimeout
-    return null if val == '' or val == @input.attr 'placeholder'
+    return null if val is '' or val is @input.attr 'placeholder'
     show = -> tooltip.show().show()
     @tooltipTimeout = _.delay show, 1000
 

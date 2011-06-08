@@ -33,11 +33,11 @@
           <div id="fields">
             <input id="asset_tag_number" placeholder="What is the Asset Tag?" type="text" /> 
             <input id="make" placeholder="Make" type="text" /> 
-            <input id="model" placeholder="Model" type="text" /> 
+            <input id="model_number" placeholder="Model" type="text" /> 
             <input id="serial_number" placeholder="Serial Number" type="text" /> 
             <input id="who_has_it" placeholder="Who's got it?" type="text" /> 
           </div>
-          <textarea name="notes" placeholder="Notes" rows="8" cols="40"></textarea>
+          <textarea id='notes' name="notes" placeholder="Notes" rows="8" cols="40"></textarea>
           <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
         </div> 
 
@@ -54,14 +54,26 @@
     <!-- Templates --> 
 
     <script type="text/template" id="item-template"> 
-      <div class="equipment <%= done ? 'done' : '' %>">
+      <div class="equipment">
         <div class="display">
-          <input class="check" type="checkbox" <%= done ? 'checked="checked"' : '' %> />
-          <div class="equipment-content"></div>
+          <div class="equipment-asset_tag_number"></div>
+          <div class="equipment-make"></div>
+          <div class="equipment-model_number"></div>
+          <div class="equipment-serial_number"></div>
+          <div class="equipment-who_has_it"></div>
+          <div class="equipment-notes"></div>
           <span class="equipment-destroy"></span>
         </div>
         <div class="edit">
-          <input class="equipment-input" type="text" value="" />
+          <div id="fields">
+            <input class="asset_tag_number" placeholder="What is the Asset Tag?" type="text" /> 
+            <input class="make" placeholder="Make" type="text" /> 
+            <input class="model_number" placeholder="Model" type="text" /> 
+            <input class="serial_number" placeholder="Serial Number" type="text" /> 
+            <input class="who_has_it" placeholder="Who's got it?" type="text" /> 
+          </div>
+          <textarea class='notes' name="notes" placeholder="Notes" rows="8" cols="40"></textarea>
+          <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
         </div>
       </div>
     </script> 
@@ -71,14 +83,6 @@
         <span class="equipment-count">
           <span class="number"><%= remaining %></span>
           <span class="word"><%= remaining == 1 ? 'item' : 'items' %></span> left.
-        </span>
-        <% } %>
-      <% if (done) { %>
-        <span class="equipment-clear">
-          <a href="#">
-            Clear <span class="number-done"><%= done %></span>
-            completed <span class="word-done"><%= done == 1 ? 'item' : 'items' %></span>
-          </a>
         </span>
         <% } %>
     </script> 

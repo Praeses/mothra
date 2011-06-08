@@ -1,16 +1,15 @@
 body {
-  background:   black;
-  color:        white;
+  color:        black;
   font-family:  'Special Elite', arial, serif;
   font-size:    30px;
 }
 
-#todoapp {
+#equipmentapp {
   background:   white;
   color:        black;
 }
 
-#todoapp {
+#equipmentapp {
   width:               480px;
   margin:              0 auto 40px;
   background:          white;
@@ -20,7 +19,7 @@ body {
   -o-box-shadow:       rgba(0, 0, 0, 0.2) 0 5px 6px 0;
   box-shadow:          rgba(0, 0, 0, 0.2) 0 5px 6px 0;
 }
-#todoapp h1 {
+#equipmentapp h1 {
   font-size:    36px;
   font-weight:  bold;
   text-align:   center;
@@ -28,10 +27,10 @@ body {
   line-height:  1;
 }
 
-#create-todo {
+#create-equipment {
   position: relative;
 }
-#create-todo input {
+#create-equipment input {
   width:               466px;
   font-size:           24px;
   font-family:         inherit;
@@ -45,10 +44,10 @@ body {
   -o-box-shadow:       rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   box-shadow:          rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
-#create-todo input::-webkit-input-placeholder {
+#create-equipment input::-webkit-input-placeholder {
   font-style: italic;
 }
-#create-todo span {
+#create-equipment span {
   position:     absolute;
   z-index:      999;
   width:        170px;
@@ -56,17 +55,17 @@ body {
   margin-left:  -85px;
 }
 
-#todo-list {
+#equipment-list {
   margin-top: 10px;
 }
-#todo-list li {
+#equipment-list li {
   padding: 12px 20px 11px 0;
   position: relative;
   font-size: 24px;
   line-height: 1.1em;
   border-bottom: 1px solid #cccccc;
 }
-#todo-list li:after {
+#equipment-list li:after {
   content: "\0020";
   display: block;
   height: 0;
@@ -74,18 +73,18 @@ body {
   overflow: hidden;
   visibility: hidden;
 }
-#todo-list li.editing {
+#equipment-list li.editing {
   padding: 0;
   border-bottom: 0;
 }
-#todo-list .editing .display,
-#todo-list .edit {
+#equipment-list .editing .display,
+#equipment-list .edit {
   display: none;
 }
-#todo-list .editing .edit {
+#equipment-list .editing .edit {
   display: block;
 }
-#todo-list .editing input {
+#equipment-list .editing input {
   width: 444px;
   font-size: 24px;
   font-family: inherit;
@@ -100,17 +99,17 @@ body {
   -o-box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
 }
-#todo-list .check {
+#equipment-list .check {
   position: relative;
   top: 9px;
   margin: 0 10px 0 7px;
   float: left;
 }
-#todo-list .done .todo-content {
+#equipment-list .done .equipment-content {
   text-decoration: line-through;
   color: #777777;
 }
-#todo-list .todo-destroy {
+#equipment-list .equipment-destroy {
   position: absolute;
   right: 5px;
   top: 14px;
@@ -120,19 +119,19 @@ body {
   height: 20px;
   background: url(destroy.png) no-repeat 0 0;
 }
-#todo-list li:hover .todo-destroy {
+#equipment-list li:hover .equipment-destroy {
   display: block;
 }
-#todo-list .todo-destroy:hover {
+#equipment-list .equipment-destroy:hover {
   background-position: 0 -20px;
 }
 
-#todo-stats {
+#equipment-stats {
   *zoom:       1;
   margin-top:  10px;
   color:       #777777;
 }
-#todo-stats:   after {
+#equipment-stats:   after {
   content:     "\0020";
   display:     block;
   height:      0;
@@ -140,24 +139,24 @@ body {
   overflow:    hidden;
   visibility:  hidden;
 }
-#todo-stats .todo-count {
+#equipment-stats .equipment-count {
   float: left;
 }
-#todo-stats .todo-count .number {
+#equipment-stats .equipment-count .number {
   font-weight:  bold;
   color:        #333333;
 }
-#todo-stats .todo-clear {
+#equipment-stats .equipment-clear {
   float: right;
 }
-#todo-stats .todo-clear a {
+#equipment-stats .equipment-clear a {
   color:      #777777;
   font-size:  12px;
 }
-#todo-stats .todo-clear a:visited {
+#equipment-stats .equipment-clear a:visited {
   color: #777777;
 }
-#todo-stats .todo-clear a:hover {
+#equipment-stats .equipment-clear a:hover {
   color: #336699;
 }
 

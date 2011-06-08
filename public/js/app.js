@@ -1,33 +1,15 @@
 (function() {
-  var App, AppView, Equipment, EquipmentList, EquipmentView, Equipments;
+  var App, AppView, Equipment, EquipmentList, EquipmentView, Inventory;
   Equipment = Backbone.Model.extend({
-    EMPTY: "empty equipment....",
-    initialize: function() {
-      if (!this.get('content')) {
-        return this.set('content', this.EMPTY);
-      }
-    },
-    toggle: function() {
+    checkout: function(user) {
       return this.save({
-        done: !this.get('done')
+        who_has_it: user(!this.get('who_has_it'))
       });
-    },
-    clear: function() {
-      this.destroy();
-      return this.view.remove();
     }
   });
   EquipmentList = Backbone.Collection.extend({
     model: Equipment,
     localStorage: new Store('equipments'),
-    done: function() {
-      return this.filter(function(equipment) {
-        return equipment.get('done');
-      });
-    },
-    remaining: function() {
-      return this.without.apply(this, this.done());
-    },
     nextOrder: function() {
       if (!this.length) {
         return 1;
@@ -38,15 +20,18 @@
       return equipment.get('order');
     }
   });
-  Equipments = new EquipmentList();
+  Inventory = new EquipmentList();
   EquipmentView = Backbone.View.extend({
     tagName: 'li',
     template: _.template($('#item-template').html()),
     events: {
-      'click .check': 'toggleDone',
-      'dblclick div.todo-content': 'edit',
-      'click span.todo-destroy': 'clear',
-      'keypress .todo-input': 'updateOnEnter'
+      'dblclick div.equipment': 'edit',
+      'keypress .asset_tag_number': 'updateOnEnter',
+      'keypress .make': 'updateOnEnter',
+      'keypress .model_number': 'updateOnEnter',
+      'keypress .serial_number': 'updateOnEnter',
+      'keypress .notes': 'updateOnEnter',
+      'keypress .who_has_it': 'updateOnEnter'
     },
     initialize: function() {
       _.bindAll(this, 'render', 'close');
@@ -59,29 +44,48 @@
       return this;
     },
     setContent: function() {
-      var content;
-      content = this.model.get('content');
-      this.$('.todo-content').text(content);
-      this.input = this.$('.todo-input');
-      this.input.bind('blur', this.close);
-      return this.input.val(content);
+      this.$('.equipment-asset_tag_number').text(this.model.get('asset_tag_number'));
+      this.$('.equipment-make').text(this.model.get('make'));
+      this.$('.equipment-model_number').text(this.model.get('model_number'));
+      this.$('.equipment-serial_number').text(this.model.get('serial_number'));
+      this.$('.equipment-who_has_it').text(this.model.get('who_has_it'));
+      this.$('.equipment-notes').text(this.model.get('notes'));
+      this.asset_tag_number = this.$('.asset_tag_number');
+      this.make = this.$('.make');
+      this.model_number = this.$('.model_number');
+      this.serial_number = this.$('.serial_number');
+      this.who_has_it = this.$('.who_has_it');
+      this.notes = this.$('.notes');
+      this.asset_tag_number.val(this.model.get('asset_tag_number'));
+      this.make.val(this.model.get('make'));
+      this.model_number.val(this.model.get('model_number'));
+      this.serial_number.val(this.model.get('serial_number'));
+      this.who_has_it.val(this.model.get('who_has_it'));
+      return this.notes.val(this.model.get('notes'));
     },
     toggleDone: function() {
       return this.model.toggle();
     },
     edit: function() {
-      $(this.el).addClass('editing');
-      return this.input.focus();
+      return $(this.el).addClass('editing');
+    },
+    updatedAttributes: function() {
+      return {
+        asset_tag_number: this.asset_tag_number.val(),
+        make: this.make.val(),
+        model_number: this.model_number.val(),
+        serial_number: this.serial_number.val(),
+        notes: this.notes.val(),
+        who_has_it: this.who_has_it.val()
+      };
     },
     close: function() {
-      this.model.save({
-        content: this.input.val()
-      });
+      this.model.save(this.updatedAttributes());
       return $(this.el).removeClass('editing');
     },
     updateOnEnter: function(e) {
       if (e.keyCode === 13) {
-        return this.close;
+        return this.close();
       }
     },
     remove: function() {
@@ -92,59 +96,61 @@
     }
   });
   AppView = Backbone.View.extend({
-    el: $('#todoapp'),
+    el: $('#equipmentapp'),
     statsTemplate: _.template($('#stats-template').html()),
     events: {
-      'keypress #new-todo': 'createOnEnter',
-      'keyup #new-todo': 'showTooltip',
-      'click .todo-clear a': 'clearCompleted'
+      'keypress #asset_tag_number': 'createOnEnter',
+      'keypress #make': 'createOnEnter',
+      'keypress #model_number': 'createOnEnter',
+      'keypress #serial_number': 'createOnEnter',
+      'keypress #notes': 'createOnEnter',
+      'keypress #who_has_it': 'createOnEnter'
     },
     initialize: function() {
       _.bindAll(this, 'addOne', 'addAll', 'render');
-      this.input = this.$('#new-todo');
-      Equipments.bind('add', this.addOne);
-      Equipments.bind('refresh', this.addAll);
-      Equipments.bind('all', this.render);
-      return Equipments.fetch();
-    },
-    render: function() {
-      var done;
-      done = Equipments.done().length;
-      return this.$('#todo-stats').html(this.statsTemplate({
-        total: Equipments.length,
-        done: Equipments.done().length,
-        remaining: Equipments.remaining().length
-      }));
+      this.asset_tag_number = this.$('#asset_tag_number');
+      this.make = this.$('#make');
+      this.model_number = this.$('#model_number');
+      this.serial_number = this.$('#serial_number');
+      this.notes = this.$('#notes');
+      this.who_has_it = this.$('#who_has_it');
+      Inventory.bind('add', this.addOne);
+      Inventory.bind('refresh', this.addAll);
+      Inventory.bind('all', this.render);
+      return Inventory.fetch();
     },
     addOne: function(equipment) {
       var view;
       view = new EquipmentView({
         model: equipment
       });
-      return this.$('#todo-list').append(view.render().el);
+      return this.$('#equipment-list').append(view.render().el);
     },
     addAll: function() {
-      return Equipments.each(this.addOne);
+      return Inventory.each(this.addOne);
     },
     newAttributes: function() {
       return {
-        content: this.input.val(),
-        order: Equipments.nextOrder(),
-        done: false
+        asset_tag_number: this.$('#asset_tag_number').val(),
+        make: this.$('#make').val(),
+        model_number: this.$('#model_number').val(),
+        serial_number: this.$('#serial_number').val(),
+        notes: this.$('#notes').val(),
+        who_has_it: this.$('#who_has_it').val(),
+        order: Inventory.nextOrder()
       };
     },
     createOnEnter: function(e) {
       if (e.keyCode !== 13) {
         return null;
       }
-      Equipments.create(this.newAttributes());
-      return this.input.val('');
-    },
-    clearCompleted: function() {
-      _.each(Equipments.done(), function(equipment) {
-        return equipment.clear();
-      });
-      return false;
+      Inventory.create(this.newAttributes());
+      this.asset_tag_number.val('');
+      this.make.val('');
+      this.model_number.val('');
+      this.serial_number.val('');
+      this.notes.val('');
+      return this.who_has_it.val('');
     },
     showTooltip: function(e) {
       var show, tooltip, val;
