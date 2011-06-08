@@ -5,18 +5,8 @@ Static = require 'node-static'
 redis  = require 'redis'
 
 class Mothra
-  ###
   # Constructor for the mothra Application
-  ###
-  constructor: (options) ->
-    ###
-    # A little bit of javascipt magic, if someone tries
-    # to make an assignment statement without 'new' this
-    # forces 'new' anyway.
-    ###
-    unless (this instanceof arguments.callee)
-      new arguments.callee(arguments)
-
+  initialize: (options) ->
     @settings = port: options.port
     init()
 
