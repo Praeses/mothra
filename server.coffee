@@ -6,7 +6,7 @@ Static = require 'node-static'
 redis  = require 'redis'
 
 # Starting up our  servers. There will be  two. The first is for  the web socket
-# layer. It will be running under the location '/faye'. The second is the static
+# layer. It will be running under the location `'/faye'`. The second is the static
 # file server.  This will server up our assets (css|js|html).
 bayeux      = new Faye.NodeAdapter { mount : '/faye' }
 static_file = new Static.Server './public'

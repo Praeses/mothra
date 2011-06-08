@@ -30,7 +30,14 @@
       <div class="content"> 
 
         <div id="create-equipment"> 
-          <input id="new-equipment" placeholder="What needs to be done?" type="text" /> 
+          <div id="fields">
+            <input id="asset_tag_number" placeholder="What is the Asset Tag?" type="text" /> 
+            <input id="make" placeholder="Make" type="text" /> 
+            <input id="model" placeholder="Model" type="text" /> 
+            <input id="serial_number" placeholder="Serial Number" type="text" /> 
+            <input id="who_has_it" placeholder="Who's got it?" type="text" /> 
+          </div>
+          <textarea name="notes" placeholder="Notes" rows="8" cols="40"></textarea>
           <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
         </div> 
 
