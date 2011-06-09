@@ -81,13 +81,6 @@ EquipmentView = Backbone.View.extend
     @who_has_it       = @$ '.who_has_it'
     @notes            = @$ '.notes'
 
-    #@asset_tag_number.bind 'blur', @close
-    #@make.bind 'blur', @close
-    #@model_number.bind 'blur', @close
-    #@serial_number.bind 'blur', @close
-    #@who_has_it.bind 'blur', @close
-    #@notes.bind 'blur', @close
-
     @asset_tag_number.val @model.get 'asset_tag_number'
     @make.val @model.get 'make'
     @model_number.val @model.get 'model_number'
