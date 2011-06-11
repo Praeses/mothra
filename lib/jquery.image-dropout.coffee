@@ -5,11 +5,10 @@ $.fn.ImageDrop = (args) ->
     img.src = tag.src
     $(tag).replaceWith(canvas)
     canvas = canvas[0]
-    size = tag.width + tag.height
-    canvas.width = tag.width 
-    canvas.height = tag.height
-    $(canvas).css('margin-left', 0 - tag.width )
-    $(canvas).css('margin-top', 0 - tag.height )
+    size = Math.sqrt( Math.pow(tag.width,2) + Math.sqrt(tag.height,2) ) + 10
+    size = Math.ceil(size)
+    $(canvas).css('margin-left', 0 - size)
+    $(canvas).css('margin-top', 0 - size )
     ctx = canvas.getContext('2d')
     rt = 0
     a = 1.5
@@ -19,7 +18,7 @@ $.fn.ImageDrop = (args) ->
     f_t = 0
 
     drawFrame = ->
-      ctx.clearRect(-400,-400,800,800)
+      ctx.clearRect(-1,-1,size * 4,size * 4)
       ctx.rotate(Math.cos(rt) * a)
       rt = rt + .02
       a = a - 0.001 if a > 0
@@ -30,7 +29,7 @@ $.fn.ImageDrop = (args) ->
     drawDrop = ->
       f_t = f_t + 1 #falling time
       g = 9.8 #m/s
-      ctx.clearRect(-400,-400,800,800)
+      ctx.clearRect(-1,-1,size * 4,size * 4)
       ctx.rotate(Math.cos(rt) * a)
       volocity = f_t * g 
       volocity_last = (f_t - 1) * g 
@@ -45,9 +44,9 @@ $.fn.ImageDrop = (args) ->
 
     canvas.onclick = ->
       start_swing = -> 
-        ctx.canvas.width = 800
+        ctx.canvas.width = size * 2
         ctx.canvas.height = 800
-        ctx.translate(img.width,img.height)
+        ctx.translate(size, size)
         setInterval drawFrame, 10 
       start_drop = ->
         setInterval drawDrop, 10 

@@ -7,11 +7,10 @@
       img.src = tag.src;
       $(tag).replaceWith(canvas);
       canvas = canvas[0];
-      size = tag.width + tag.height;
-      canvas.width = tag.width;
-      canvas.height = tag.height;
-      $(canvas).css('margin-left', 0 - tag.width);
-      $(canvas).css('margin-top', 0 - tag.height);
+      size = Math.sqrt(Math.pow(tag.width, 2) + Math.sqrt(tag.height, 2)) + 10;
+      size = Math.ceil(size);
+      $(canvas).css('margin-left', 0 - size);
+      $(canvas).css('margin-top', 0 - size);
       ctx = canvas.getContext('2d');
       rt = 0;
       a = 1.5;
@@ -20,7 +19,7 @@
       droping = false;
       f_t = 0;
       drawFrame = function() {
-        ctx.clearRect(-400, -400, 800, 800);
+        ctx.clearRect(-1, -1, size * 4, size * 4);
         ctx.rotate(Math.cos(rt) * a);
         rt = rt + .02;
         if (a > 0) {
@@ -36,7 +35,7 @@
         var displacement, displacement_last, g, volocity, volocity_last;
         f_t = f_t + 1;
         g = 9.8;
-        ctx.clearRect(-400, -400, 800, 800);
+        ctx.clearRect(-1, -1, size * 4, size * 4);
         ctx.rotate(Math.cos(rt) * a);
         volocity = f_t * g;
         volocity_last = (f_t - 1) * g;
@@ -52,9 +51,9 @@
       return canvas.onclick = function() {
         var start_drop, start_swing, stop_drop;
         start_swing = function() {
-          ctx.canvas.width = 800;
+          ctx.canvas.width = size * 2;
           ctx.canvas.height = 800;
-          ctx.translate(img.width, img.height);
+          ctx.translate(size, size);
           return setInterval(drawFrame, 10);
         };
         start_drop = function() {
