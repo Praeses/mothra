@@ -189,68 +189,70 @@ App = new AppView
 
 
 
-ButtonView = Backbone.View.extend
-  render: () ->
-    canvases = $ '.checkout' 
-    canvases.each (i,canvas) ->
-      ctx = canvas.getContext('2d')
-      ctx.translate(250,50)
-      img = new Image()
-      img.src = '../images/checkout.png'
-      rt = 0
-      a = 1.5
-      cost_r = null 
-      running_interval = null
-      droping = false
-      f_t = 0
-      drawFrame = ->
-        ctx.clearRect(-400,-400,800,800)
-        ctx.rotate(Math.cos(rt) * a)
-        rt = rt + .02
-        a = a - 0.001 if a > 0
-        rt = 0 if rt >= (Math.PI * 2)
-        ctx.rotate(-Math.cos(rt) * a)
-        ctx.drawImage(img,0,0,200,50)
-      drawDrop = ->
-        f_t = f_t + 1 #falling time
-        g = 9.8 #m/s
-        ctx.clearRect(-400,-400,800,800)
-        ctx.rotate(Math.cos(rt) * a)
-        volocity = f_t * g 
-        volocity_last = (f_t - 1) * g 
-        displacement = (volocity*volocity)/(2 * g)
-        displacement_last = (volocity_last*volocity_last)/(2 * g)
-        ctx.translate( (displacement - displacement_last) / 30,0)
-        ctx.rotate(-Math.cos(rt + .005 ) * a)
-        ctx.drawImage(img,0,0,200,50)
-      img.onload = ->
-        drawFrame()
-      canvas.onclick = ->
-        start_swing = -> 
-          ctx.canvas.width = 800
-          ctx.canvas.height = 800
-          ctx.translate(250,50)
-          setInterval drawFrame, 10 
-        start_drop = ->
-          setInterval drawDrop, 10 
-        stop_drop = ->
-          clearInterval running_interval
-          $('.checkout').remove()
-        if running_interval == null
-          running_interval = start_swing() 
-        else if droping == false
-          droping = true
-          clearInterval running_interval
-          running_interval = start_drop() 
-          setTimeout stop_drop, 3000
+#ButtonView = Backbone.View.extend
+#  render: () ->
+#    canvases = $ '.checkout' 
+#    canvases.each (i,canvas) ->
+#      ctx = canvas.getContext('2d')
+#      ctx.translate(250,50)
+#      img = new Image()
+#      img.src = '../images/checkout.png'
+#      rt = 0
+#      a = 1.5
+#      cost_r = null 
+#      running_interval = null
+#      droping = false
+#      f_t = 0
+#      drawFrame = ->
+#        ctx.clearRect(-400,-400,800,800)
+#        ctx.rotate(Math.cos(rt) * a)
+#        rt = rt + .02
+#        a = a - 0.001 if a > 0
+#        rt = 0 if rt >= (Math.PI * 2)
+#        ctx.rotate(-Math.cos(rt) * a)
+#        ctx.drawImage(img,0,0,200,50)
+#      drawDrop = ->
+#        f_t = f_t + 1 #falling time
+#        g = 9.8 #m/s
+#        ctx.clearRect(-400,-400,800,800)
+#        ctx.rotate(Math.cos(rt) * a)
+#        volocity = f_t * g 
+#        volocity_last = (f_t - 1) * g 
+#        displacement = (volocity*volocity)/(2 * g)
+#        displacement_last = (volocity_last*volocity_last)/(2 * g)
+#        ctx.translate( (displacement - displacement_last) / 30,0)
+#        ctx.rotate(-Math.cos(rt + .005 ) * a)
+#        ctx.drawImage(img,0,0,200,50)
+#      img.onload = ->
+#        drawFrame()
+#      canvas.onclick = ->
+#        start_swing = -> 
+#          ctx.canvas.width = 800
+#          ctx.canvas.height = 800
+#          ctx.translate(250,50)
+#          setInterval drawFrame, 10 
+#        start_drop = ->
+#          setInterval drawDrop, 10 
+#        stop_drop = ->
+#          clearInterval running_interval
+#          $('.checkout').remove()
+#        if running_interval == null
+#          running_interval = start_swing() 
+#        else if droping == false
+#          droping = true
+#          clearInterval running_interval
+#          running_interval = start_drop() 
+#          setTimeout stop_drop, 3000
+
+
+$('img').each (i,c) ->
+  c.onclick = ->
+    $(c).ImageDrop()
 
 
 
 
-
-
-
-button = new ButtonView
-_.delay( button.render, 1000)
+#button = new ButtonView
+#_.delay( button.render, 1000)
 
 

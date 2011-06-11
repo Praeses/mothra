@@ -282,6 +282,7 @@ body {
 .checkout
 {
   position:absolute;
-  left: -50px;
-  top: 40px
+  left: 150px;
+  top: 40px;
+  cursor: pointer;
 }
