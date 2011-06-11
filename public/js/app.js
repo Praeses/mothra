@@ -1,5 +1,5 @@
 (function() {
-  var App, AppView, Equipment, EquipmentList, EquipmentView, Inventory;
+  var App, AppView, ButtonView, Equipment, EquipmentList, EquipmentView, Inventory, button;
   Equipment = Backbone.Model.extend({
     checkout: function(user) {
       return this.save({
@@ -170,4 +170,79 @@
     }
   });
   App = new AppView;
+  ButtonView = Backbone.View.extend({
+    render: function() {
+      var canvases;
+      canvases = $('.checkout');
+      return canvases.each(function(i, canvas) {
+        var a, cost_r, ctx, drawDrop, drawFrame, droping, f_t, img, rt, running_interval;
+        ctx = canvas.getContext('2d');
+        ctx.translate(250, 50);
+        img = new Image();
+        img.src = '../images/checkout.png';
+        rt = 0;
+        a = 1.5;
+        cost_r = null;
+        running_interval = null;
+        droping = false;
+        f_t = 0;
+        drawFrame = function() {
+          ctx.clearRect(-400, -400, 800, 800);
+          ctx.rotate(Math.cos(rt) * a);
+          rt = rt + .02;
+          if (a > 0) {
+            a = a - 0.001;
+          }
+          if (rt >= (Math.PI * 2)) {
+            rt = 0;
+          }
+          ctx.rotate(-Math.cos(rt) * a);
+          return ctx.drawImage(img, 0, 0, 200, 50);
+        };
+        drawDrop = function() {
+          var displacement, displacement_last, g, volocity, volocity_last;
+          f_t = f_t + 1;
+          g = 9.8;
+          ctx.clearRect(-400, -400, 800, 800);
+          ctx.rotate(Math.cos(rt) * a);
+          volocity = f_t * g;
+          volocity_last = (f_t - 1) * g;
+          displacement = (volocity * volocity) / (2 * g);
+          displacement_last = (volocity_last * volocity_last) / (2 * g);
+          ctx.translate((displacement - displacement_last) / 30, 0);
+          ctx.rotate(-Math.cos(rt + .005) * a);
+          return ctx.drawImage(img, 0, 0, 200, 50);
+        };
+        img.onload = function() {
+          return drawFrame();
+        };
+        return canvas.onclick = function() {
+          var start_drop, start_swing, stop_drop;
+          start_swing = function() {
+            ctx.canvas.width = 800;
+            ctx.canvas.height = 800;
+            ctx.translate(250, 50);
+            return setInterval(drawFrame, 10);
+          };
+          start_drop = function() {
+            return setInterval(drawDrop, 10);
+          };
+          stop_drop = function() {
+            clearInterval(running_interval);
+            return $('.checkout').remove();
+          };
+          if (running_interval === null) {
+            return running_interval = start_swing();
+          } else if (droping === false) {
+            droping = true;
+            clearInterval(running_interval);
+            running_interval = start_drop();
+            return setTimeout(stop_drop, 3000);
+          }
+        };
+      });
+    }
+  });
+  button = new ButtonView;
+  _.delay(button.render, 1000);
 }).call(this);

@@ -278,3 +278,10 @@ body {
   -khtml-transform:   rotate(180deg);
   -webkit-transform:  rotate(180deg);
 }
+
+.checkout
+{
+  position:absolute;
+  left: -50px;
+  top: 40px
+}
