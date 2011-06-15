@@ -1,5 +1,3 @@
-require 'faye'
-
 # The Store 
 # =========
 # The Store is what will transfer the data back and forth between the client and
@@ -8,7 +6,8 @@ require 'faye'
 # been sent in  a while Faye will  handle sending this data  when the connection
 # has been re-established
 class Store
-  constructor: (@channel, @options = { bayeux : '/backbone-faye'}) ->
+  constructor: (channel, @options = { bayeux : '/backbone-faye'}) ->
+    @channel = '/models/' + channel
     # Setup the Faye client.  By default it will listen on `/backbone-faye`.
     # All communication will go through this faye client.
     @bayeux   = new Faye.Client @options.bayeux
