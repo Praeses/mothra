@@ -1,10 +1,10 @@
 # Requiring the libs we are going to use for the app. To install theses libs run
 # `npm install` and they will be installed using the package.json
-http          = require 'http'
-Faye          = require 'faye'
-Static        = require 'node-static'
-redis         = require 'redis'
-BackboneRedis = require './lib/backbone-faye-server-store'
+http      = require 'http'
+Faye      = require 'faye'
+Static    = require 'node-static'
+redis     = require 'redis'
+RedisSync = require './lib/backbone-faye-server-store'
 
 # Starting up our  servers. There will be  two. The first is for  the web socket
 # layer. It will be running under the location `'/faye'`. The second is the static
@@ -23,7 +23,7 @@ bayeux.attach server
 # Starting the http server on port 1337
 server.listen 1337
 
-bayeux.addExtension new BackboneRedis()
+bayeux.addExtension new RedisSync.Sync
 # When a message is received from a client, then write that message out to
 # the console.
 out_message = (messages) ->

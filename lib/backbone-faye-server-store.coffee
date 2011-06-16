@@ -1,6 +1,8 @@
-events = require 'events'
+EventEmitter = require( 'events' ).EventEmitter
 
-class BackboneRedis extends events.EventEmitter
+Sync = {}
+
+class Sync extends EventEmitter
 
   constructor: ->
     redis  = require('redis')
@@ -26,4 +28,7 @@ class BackboneRedis extends events.EventEmitter
     # Create
     console.log( base_key )
     console.log( model )
-    
+   
+
+
+exports.Sync = Sync
