@@ -18,19 +18,28 @@ server = http.createServer (request, response) ->
   request.addListener 'end', ->
     static_file.serve request, response
 
+sync = new RedisSync.Sync
+bayeux.addExtension sync
+
+
 # Attaching the faye server to the http serve
 bayeux.attach server 
 # Starting the http server on port 1337
 server.listen 1337
 
-bayeux.addExtension new RedisSync.Sync
+push_model = (channel, model) ->
+  bayeux.getClient().publish channel, model
+
+sync.on 'data', push_model
+
+
 # When a message is received from a client, then write that message out to
 # the console.
 out_message = (messages) ->
-  console.log messages.text
+  console.log messages
 
 # Hooking into the client's message queue.
-bayeux.getClient().subscribe '/messages', out_message
+bayeux.getClient().subscribe '/models/equipments', out_message
 
 # pushing a message ( string ) back to the clients
 push = (message = 'w00t') -> 
