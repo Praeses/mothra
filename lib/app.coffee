@@ -9,6 +9,8 @@
 #
 # Equipment can be reserved ( allowing some one to check it out )
 # and equipment must be returned.
+
+
 Equipment = Backbone.Model.extend
 
   checkout: (user)->
@@ -24,7 +26,7 @@ EquipmentList = Backbone.Collection.extend
   # Defining the model this collection will use ( this is a must )
   model: Equipment
   # Defining how we want the collection to persist
-  localStorage: new Store 'equipments'
+  fayeStorage: new Store 'equipments'
 
   # helper to keep order on the page
   nextOrder: ->
@@ -182,4 +184,13 @@ AppView = Backbone.View.extend
     show = -> tooltip.show().show()
     @tooltipTimeout = _.delay show, 1000
 
+
 App = new AppView
+
+
+$('img').each (i,c) ->
+  c.onclick = ->
+    $(c).ImageDrop()
+
+
+

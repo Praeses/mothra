@@ -9,7 +9,7 @@
   });
   EquipmentList = Backbone.Collection.extend({
     model: Equipment,
-    localStorage: new Store('equipments'),
+    fayeStorage: new Store('equipments'),
     nextOrder: function() {
       if (!this.length) {
         return 1;
@@ -170,4 +170,9 @@
     }
   });
   App = new AppView;
+  $('img').each(function(i, c) {
+    return c.onclick = function() {
+      return $(c).ImageDrop();
+    };
+  });
 }).call(this);

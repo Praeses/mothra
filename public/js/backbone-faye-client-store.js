@@ -1,18 +1,15 @@
 (function() {
   var Store;
-  Store = (function() {
+  window.Store = Store = (function() {
     function Store(channel, options) {
       this.options = options != null ? options : {
-        bayeux: '/backbone-faye'
+        bayeux: '/faye'
       };
       this.channel = '/models/' + channel;
       this.bayeux = new Faye.Client(this.options.bayeux);
-      this.bayeux.subscribe(this.channel, on_message);
+      this.bayeux.subscribe(this.channel, this.on_message);
     }
     Store.prototype.write = function(message, success, error) {
-      if (message.toJSON() === 'function') {
-        message = message.toJSON();
-      }
       return this.bayeux.publish(this.channel, message);
     };
     Store.prototype.on_message = function(data) {
@@ -27,8 +24,8 @@
     return Store;
   })();
   Backbone.sync = function(method, model, success, error) {
-    var messsage;
-    messsage = {
+    var message;
+    message = {
       method: method,
       model: model
     };

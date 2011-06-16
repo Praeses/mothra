@@ -5,23 +5,23 @@
 # stuff. It will  handle connection drops and reconnects. Also,  if data has not
 # been sent in  a while Faye will  handle sending this data  when the connection
 # has been re-established
-class Store
-  constructor: (channel, @options = { bayeux : '/backbone-faye'}) ->
+window.Store = class Store
+  constructor: (channel, @options = { bayeux : '/faye'}) ->
     @channel = '/models/' + channel
-    # Setup the Faye client.  By default it will listen on `/backbone-faye`.
+    # Setup the Faye client.  By default it will listen on `/faye`.
     # All communication will go through this faye client.
     @bayeux   = new Faye.Client @options.bayeux
     # Subscribe  to the  channel  for  this store.  An  example  would be  using
     # the  plural name  of  the model  for  the  channel This  way  we can  have
     # each  collection seperated  on a  different channel  to help  simplify the
     # communication to the server.
-    @bayeux.subscribe @channel, on_message
+    @bayeux.subscribe @channel, @on_message
 
   # Publishing  a message  to the  server. If  the message  is a  `function` the
   # system will  first convert it  to json and  then send the  message. Messages
   # should be json.
   write: (message, success, error) ->
-    message = message.toJSON() if message.toJSON() is 'function'
+    # message = message.toJSON() if message.toJSON() is 'function'
     # NOTE: need to  figure out a way  to determine if this worked  or not. This
     # should be in the documentation for the faye protocal.
     @bayeux.publish @channel, message
@@ -59,7 +59,7 @@ class Store
 Backbone.sync = (method, model, success, error) ->
   # Wrap what we want to send to the  server in an object NOTE: Other params may
   # be needed to help identify more about what is going on here.
-  messsage = 
+  message = 
     method: method
     model:  model
 
@@ -67,6 +67,4 @@ Backbone.sync = (method, model, success, error) ->
   # client side for any of the operations. We will just pass it through and then
   # update the records on the return message from the server.
   model.fayeStorage.write message, success, error
-
-
 
