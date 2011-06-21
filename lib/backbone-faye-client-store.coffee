@@ -57,6 +57,10 @@ window.Store = class Store
 # and we are complete. The callbacks won't do anything right now due to how faye
 # handles communication.
 Backbone.sync = (method, model, success, error) ->
+  # This way  we well  will easily  know if  the client  is requesting  a single
+  # object or an array of objects.
+  method = 'readAll' if model.fayeStorage? 
+  store  = model.fayeStorage or model.collection.fayeStorage
   # Wrap what we want to send to the  server in an object NOTE: Other params may
   # be needed to help identify more about what is going on here.
   message = 
@@ -66,5 +70,5 @@ Backbone.sync = (method, model, success, error) ->
   # Very simple  pass through  for the  faye server.  No work  is needed  on the
   # client side for any of the operations. We will just pass it through and then
   # update the records on the return message from the server.
-  model.fayeStorage.write message, success, error
+  store.write message, success, error
 

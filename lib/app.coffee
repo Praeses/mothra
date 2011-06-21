@@ -9,8 +9,6 @@
 #
 # Equipment can be reserved ( allowing some one to check it out )
 # and equipment must be returned.
-
-
 Equipment = Backbone.Model.extend
 
   checkout: (user)->

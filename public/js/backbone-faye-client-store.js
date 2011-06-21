@@ -24,11 +24,15 @@
     return Store;
   })();
   Backbone.sync = function(method, model, success, error) {
-    var message;
+    var message, store;
+    if (model.fayeStorage != null) {
+      method = 'readAll';
+    }
+    store = model.fayeStorage || model.collection.fayeStorage;
     message = {
       method: method,
       model: model
     };
-    return model.fayeStorage.write(message, success, error);
+    return store.write(message, success, error);
   };
 }).call(this);
