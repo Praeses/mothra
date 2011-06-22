@@ -48,17 +48,17 @@ EquipmentView = Backbone.View.extend
 
   events:
     'dblclick div.equipment':  'edit'
-    'keypress .asset_tag_number':      'updateOnEnter'
-    'keypress .make':                  'updateOnEnter'
-    'keypress .model_number':          'updateOnEnter'
-    'keypress .serial_number':         'updateOnEnter'
-    'keypress .notes':                 'updateOnEnter'
-    'keypress .who_has_it':            'updateOnEnter'
+    'keyup .asset_tag_number':      'liveSave'
+    'keyup .make':                  'liveSave'
+    'keyup .model_number':          'liveSave'
+    'keyup .serial_number':         'liveSave'
+    'keyup .notes':                 'liveSave'
+    'keyup .who_has_it':            'liveSave'
 
   initialize: ->
-    _.bindAll @, 'render', 'close'
+    _.bindAll @, 'render', 'close', 'setContent'
     # When ever the model changes we will want to re-render this html element
-    @model.bind 'change', @render
+    @model.bind 'change', @setContent
     @model.view = @
 
   render: ->
@@ -107,8 +107,8 @@ EquipmentView = Backbone.View.extend
     @model.save @updatedAttributes()
     $(@el).removeClass 'editing'
 
-  updateOnEnter: (e) ->
-    # Hooking in the enter key
+  liveSave: (e) ->
+    @model.save @updatedAttributes()
     @close() if e.keyCode is 13
 
   remove: ->

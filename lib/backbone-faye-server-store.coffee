@@ -34,7 +34,7 @@ class Sync extends EventEmitter
     # of `/models/and_stuff_we_want`. So any channel that starts with `/models/`
     # ( NOTE:  the slash  at the  start and  end ) we  will want  to keep  to do
     # something with.
-    regex = /\/models\/(\w+)/
+    regex = /^\/models\/(\w+)/
 
     # Now test the channel with the given reg ex
     unless regex.test message.channel
@@ -73,7 +73,7 @@ class Sync extends EventEmitter
     model.id = @client.get base_key, (err,obj) ->
       this_model.id = obj
       that.out_log 'create', base_key, this_model
-      that.update( base_key, this_model )
+      that.update( base_key, this_model, 'create' )
 
   read: (base_key, model) ->
     @out_log 'read', base_key, model
@@ -81,7 +81,7 @@ class Sync extends EventEmitter
     that = @
     @client.hgetall @key( base_key, model ), (err,obj) ->
       console.log base_key
-      that.publish base_key, obj
+      that.publish base_key, obj, 'read'
 
   readAll: (base_key, collection) ->
     # Read All
@@ -92,21 +92,23 @@ class Sync extends EventEmitter
         parts = key.split ':'
         that.read( parts[0], { id : parts[1] } ) )
 
-  update: (base_key, model) ->
+  update: (base_key, model, method) ->
+    this_method = method or 'update'
     this_model = model
     @out_log 'update', base_key, this_model
     @client.hmset @key( base_key, model ), this_model
-    @publish base_key, this_model
+    @publish base_key, this_model, this_method
 
   delete: (base_key, model) ->
     @out_log 'delete', base_key, model
     @client.del @key( base_key, model )
-    @readAll base_key
+    @publish base_key, model, 'delete'
 
-  publish: (channel, model) ->
+  publish: (channel, data, action) ->
     console.log channel
-    console.log model
-    @emit 'data', "/models/#{channel}", model
+    console.log data
+    message = { model : data , method : action }
+    @emit 'data', "/server/models/#{channel}", message
 
    
 

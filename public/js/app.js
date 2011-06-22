@@ -26,16 +26,16 @@
     template: _.template($('#item-template').html()),
     events: {
       'dblclick div.equipment': 'edit',
-      'keypress .asset_tag_number': 'updateOnEnter',
-      'keypress .make': 'updateOnEnter',
-      'keypress .model_number': 'updateOnEnter',
-      'keypress .serial_number': 'updateOnEnter',
-      'keypress .notes': 'updateOnEnter',
-      'keypress .who_has_it': 'updateOnEnter'
+      'keyup .asset_tag_number': 'liveSave',
+      'keyup .make': 'liveSave',
+      'keyup .model_number': 'liveSave',
+      'keyup .serial_number': 'liveSave',
+      'keyup .notes': 'liveSave',
+      'keyup .who_has_it': 'liveSave'
     },
     initialize: function() {
-      _.bindAll(this, 'render', 'close');
-      this.model.bind('change', this.render);
+      _.bindAll(this, 'render', 'close', 'setContent');
+      this.model.bind('change', this.setContent);
       return this.model.view = this;
     },
     render: function() {
@@ -83,7 +83,8 @@
       this.model.save(this.updatedAttributes());
       return $(this.el).removeClass('editing');
     },
-    updateOnEnter: function(e) {
+    liveSave: function(e) {
+      this.model.save(this.updatedAttributes());
       if (e.keyCode === 13) {
         return this.close();
       }
