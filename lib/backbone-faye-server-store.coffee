@@ -13,7 +13,8 @@ class Sync extends EventEmitter
   constructor: ->
     redis  = require('redis')
     @client = redis.createClient()
-    
+    _und.bindAll @
+
     # Hooking in to the `create` event
     @on 'create' , @create
     # Hooking in to the `read` event 
@@ -39,7 +40,10 @@ class Sync extends EventEmitter
     unless regex.test message.channel
       # If we don't like this channel then use pass it through to the callback
       return callback message
-   
+ 
+    unless message.data?
+      return callback message
+
     # Now we know that the channel we are on is one we want to do something with
     # So we will fire off an event with  the name of the method ( e.g. `create`,
     # `read`, `update`, `destroy` ) and send along the data with it.
@@ -62,42 +66,47 @@ class Sync extends EventEmitter
 
   create: (base_key, model) ->
     # Create
+    this_model = model
+    that = @
     @client.incr base_key
 
     model.id = @client.get base_key, (err,obj) ->
-      console.log err
-      console.log obj
-      console.log @
-
-    @out_log 'create', base_key, model
-    @update( base_key, model )
+      this_model.id = obj
+      that.out_log 'create', base_key, this_model
+      that.update( base_key, this_model )
 
   read: (base_key, model) ->
     @out_log 'read', base_key, model
     # Read
-    obj = @client.hgetall @key( base_key, model )
-    @publish base_key, obj
+    that = @
+    @client.hgetall @key( base_key, model ), (err,obj) ->
+      console.log base_key
+      that.publish base_key, obj
 
   readAll: (base_key, collection) ->
     # Read All
     @out_log 'read all', base_key, collection
-    keys = @client.keys base_key
-    _und.each(keys, (key) -> @read( key ) )
+    that = @
+    @client.keys base_key + ':*', (err,keys) ->
+      _und.each(keys, (key) -> 
+        parts = key.split ':'
+        that.read( parts[0], { id : parts[1] } ) )
 
   update: (base_key, model) ->
-    @out_log 'update', base_key, model
-    @client.hmset @key( model.id ), model, (err,obj) -> console.log obj
-    @publish base_key, model
+    this_model = model
+    @out_log 'update', base_key, this_model
+    @client.hmset @key( base_key, model ), this_model
+    @publish base_key, this_model
 
   delete: (base_key, model) ->
     @out_log 'delete', base_key, model
-    @client.del @key( model.id )
+    @client.del @key( base_key, model )
     @readAll base_key
 
   publish: (channel, model) ->
     console.log channel
     console.log model
-    @emit 'data', '/models/#{channel}', model
+    @emit 'data', "/models/#{channel}", model
 
    
 
