@@ -26,12 +26,7 @@
     template: _.template($('#item-template').html()),
     events: {
       'dblclick div.equipment': 'edit',
-      'keyup .asset_tag_number': 'liveSave',
-      'keyup .make': 'liveSave',
-      'keyup .model_number': 'liveSave',
-      'keyup .serial_number': 'liveSave',
-      'keyup .notes': 'liveSave',
-      'keyup .who_has_it': 'liveSave'
+      'keyup #fields input ': 'liveSave'
     },
     initialize: function() {
       _.bindAll(this, 'render', 'close', 'setContent');

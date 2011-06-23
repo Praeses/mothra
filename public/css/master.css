@@ -10,7 +10,7 @@ body {
 }
 
 #equipmentapp {
-  width:               480px;
+  width:               1000px;
   margin:              0 auto 40px;
   background:          white;
   padding:             20px;
@@ -27,11 +27,20 @@ body {
   line-height:  1;
 }
 
-#create-equipment {
-  position: relative;
+#equipments {
+  clear: both;
 }
-#create-equipment input {
-  width:               466px;
+#create-equipment {
+  margin: 0 auto 40px;
+}
+
+#fields {
+  width: 430px;
+  float: left;
+}
+
+#create-equipment input, textarea {
+  width:               400px;
   font-size:           24px;
   font-family:         inherit;
   line-height:         1.4em;

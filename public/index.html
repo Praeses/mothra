@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta charset="utf-8" />
 
-    <link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" charset="utf-8">
-    <link href='http://fonts.googleapis.com/css?family=Special+Elite' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/css/master.css" >
+    <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Special+Elite' >
 
     <script type="text/javascript" src="/faye.js"> </script>
     <script type="text/javascript" src="/js/zepto.js"> </script>
@@ -29,29 +30,28 @@
         <h1>Inventory</h1> 
       </div> 
 
-      <div class="content"> 
-
-        <div id="create-equipment"> 
-          <div id="fields">
-            <input id="asset_tag_number" placeholder="What is the Asset Tag?" type="text" /> 
-            <input id="make" placeholder="Make" type="text" /> 
-            <input id="model_number" placeholder="Model" type="text" /> 
-            <input id="serial_number" placeholder="Serial Number" type="text" /> 
-            <input id="who_has_it" placeholder="Who's got it?" type="text" /> 
-          </div>
-          <textarea id='notes' name="notes" placeholder="Notes" rows="8" cols="40"></textarea>
+      <section id="create-equipment"> 
+        <section id="fields">
+          <input id="asset_tag_number" placeholder="What is the Asset Tag?" type="text" /> 
+          <input id="make" placeholder="Make" type="text" /> 
+          <input id="model_number" placeholder="Model" type="text" /> 
+          <input id="serial_number" placeholder="Serial Number" type="text" /> 
+          <input id="who_has_it" placeholder="Who's got it?" type="text" /> 
+        </section>
+        <section id='comments'>
+          <textarea id='notes' name="notes" placeholder="Notes" rows="7" cols="40"></textarea>
           <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
-        </div> 
+        </section>
+      </section> 
 
-        <div id="equipments"> 
-          <ul id="equipment-list"></ul> 
-        </div> 
+      <section id="equipments"> 
+        <ul id="equipment-list"></ul> 
+      </section> 
 
-        <div id="equipment-stats"></div> 
-
-      </div> 
+      <div id="equipment-stats"></div> 
 
     </div> 
+
 
     <!-- Templates --> 
 
