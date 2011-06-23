@@ -23,6 +23,7 @@ window.Store = class Store
 
   on: (name, callback) ->
     @handlers[name] ||= []
+    console.log @handlers
     @handlers[name].push callback
 
   trigger: ->
@@ -47,14 +48,8 @@ window.Store = class Store
   # the  server will  have  all  the information  needed.  Once  the message  is
   # received it will need to trigger the model update.
   on_message: (data) ->
-    #message = JSON.parse data
     # Grab the key from the message. This will  tell us if the message was for a
     # collection update, model update, or another type of communication.
-    #model = message.model
-    #method = message.method
-
-    console.log data
-    console.log @
     @trigger 'sync', data
 
 # Backbone#sync
@@ -67,9 +62,6 @@ window.Store = class Store
 # handles communication.
 Backbone.sync = (method, model, success, error) ->
   syncCallback = (message) ->
-    console.log 'in callback'
-    console.log message
-
     if model is Backbone.Model
       switch message.method
         when 'update' then model.set message.model

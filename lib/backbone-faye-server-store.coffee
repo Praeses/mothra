@@ -59,33 +59,23 @@ class Sync extends EventEmitter
     else
       base_key 
 
-  out_log: (action, base_key, model) ->
-    #console.log "in #{ action }"
-    #console.log base_key
-    #console.log model
-
   create: (base_key, model) ->
     # Create
-    this_model = model
     that = @
     @client.incr base_key
 
-    model.id = @client.get base_key, (err,obj) ->
-      this_model.id = obj
-      that.out_log 'create', base_key, this_model
-      that.update( base_key, this_model, 'create' )
+    @client.get base_key, (err,obj) ->
+      model.id = obj
+      that.update base_key, model, 'create'
 
   read: (base_key, model) ->
-    @out_log 'read', base_key, model
     # Read
     that = @
     @client.hgetall @key( base_key, model ), (err,obj) ->
-      console.log base_key
       that.publish base_key, obj, 'read'
 
   readAll: (base_key, collection) ->
     # Read All
-    @out_log 'read all', base_key, collection
     that = @
     @client.keys base_key + ':*', (err,keys) ->
       _und.each(keys, (key) -> 
@@ -93,11 +83,8 @@ class Sync extends EventEmitter
         that.read( parts[0], { id : parts[1] } ) )
 
   update: (base_key, model, method) ->
-    this_method = method or 'update'
-    this_model = model
-    @out_log 'update', base_key, this_model
-    @client.hmset @key( base_key, model ), this_model
-    @publish base_key, this_model, this_method
+    @client.hmset @key( base_key, model ), model
+    @publish base_key, model, ( method or 'update' )
 
   delete: (base_key, model) ->
     @out_log 'delete', base_key, model
@@ -105,8 +92,6 @@ class Sync extends EventEmitter
     @publish base_key, model, 'delete'
 
   publish: (channel, data, action) ->
-    console.log channel
-    console.log data
     message = { model : data , method : action }
     @emit 'data', "/server/models/#{channel}", message
 

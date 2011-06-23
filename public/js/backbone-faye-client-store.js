@@ -15,6 +15,7 @@
     Store.prototype.on = function(name, callback) {
       var _base;
       (_base = this.handlers)[name] || (_base[name] = []);
+      console.log(this.handlers);
       return this.handlers[name].push(callback);
     };
     Store.prototype.trigger = function() {
@@ -38,8 +39,6 @@
       return this.bayeux.publish(this.channel, message);
     };
     Store.prototype.on_message = function(data) {
-      console.log(data);
-      console.log(this);
       return this.trigger('sync', data);
     };
     return Store;
@@ -47,8 +46,6 @@
   Backbone.sync = function(method, model, success, error) {
     var message, store, syncCallback;
     syncCallback = function(message) {
-      console.log('in callback');
-      console.log(message);
       if (model === Backbone.Model) {
         switch (message.method) {
           case 'update':
