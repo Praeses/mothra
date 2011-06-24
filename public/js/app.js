@@ -133,7 +133,13 @@
         order: Inventory.nextOrder()
       };
     },
+    hasAttributes: function() {
+      return this.$('#asset_tag_number').val() || this.$('#make').val() || this.$('#model_number').val() || this.$('#serial_number').val() || this.$('#notes').val() || this.$('#who_has_it').val();
+    },
     createOnEnter: function(e) {
+      if (!this.hasAttributes()) {
+        return null;
+      }
       if (e.keyCode !== 13) {
         return null;
       }
@@ -163,9 +169,4 @@
     }
   });
   App = new AppView;
-  $('img').each(function(i, c) {
-    return c.onclick = function() {
-      return $(c).ImageDrop();
-    };
-  });
 }).call(this);

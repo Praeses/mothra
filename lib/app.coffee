@@ -145,7 +145,16 @@ AppView = Backbone.View.extend
     who_has_it:        @$( '#who_has_it' ).val()
     order:             Inventory.nextOrder()
 
+  hasAttributes: ->
+    @$( '#asset_tag_number' ).val() or
+    @$( '#make' ).val() or
+    @$( '#model_number' ).val() or
+    @$( '#serial_number' ).val() or
+    @$( '#notes' ).val() or
+    @$( '#who_has_it' ).val()
+
   createOnEnter: (e) ->
+    return null unless @hasAttributes()
     return null unless e.keyCode is 13
     Inventory.create @newAttributes()
     @asset_tag_number.val('') 
@@ -168,6 +177,6 @@ AppView = Backbone.View.extend
 
 App = new AppView
 
-$('img').each (i,c) ->
-  c.onclick = -> $(c).ImageDrop()
+#$('img').each (i,c) ->
+#  c.onclick = -> $(c).ImageDrop()
 
