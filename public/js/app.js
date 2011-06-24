@@ -26,10 +26,12 @@
     template: _.template($('#item-template').html()),
     events: {
       'dblclick div.equipment': 'edit',
-      'keyup #fields input ': 'liveSave'
+      'keyup #fields input': 'liveSave',
+      'keyup #fields textarea': 'liveSave',
+      'click .equipment-destroy': 'destroy'
     },
     initialize: function() {
-      _.bindAll(this, 'render', 'close', 'setContent');
+      _.bindAll(this, 'render', 'close', 'setContent', 'destroy');
       this.model.bind('change', this.setContent);
       return this.model.view = this;
     },
@@ -64,6 +66,12 @@
     edit: function() {
       return $(this.el).addClass('editing');
     },
+    clear: function() {
+      return this.model.clear();
+    },
+    destroy: function() {
+      return this.model.destroy();
+    },
     updatedAttributes: function() {
       return {
         asset_tag_number: this.asset_tag_number.val(),
@@ -83,24 +91,13 @@
       if (e.keyCode === 13) {
         return this.close();
       }
-    },
-    remove: function() {
-      return $(this.el).remove();
-    },
-    clear: function() {
-      return this.model.clear();
     }
   });
   AppView = Backbone.View.extend({
     el: $('#equipmentapp'),
-    statsTemplate: _.template($('#stats-template').html()),
     events: {
-      'keypress #asset_tag_number': 'createOnEnter',
-      'keypress #make': 'createOnEnter',
-      'keypress #model_number': 'createOnEnter',
-      'keypress #serial_number': 'createOnEnter',
-      'keypress #notes': 'createOnEnter',
-      'keypress #who_has_it': 'createOnEnter'
+      'keyup #fields input': 'createOnEnter',
+      'keyup #fields textarea': 'createOnEnter'
     },
     initialize: function() {
       _.bindAll(this, 'addOne', 'addAll', 'render');

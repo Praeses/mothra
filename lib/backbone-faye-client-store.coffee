@@ -19,27 +19,11 @@ window.Store = class Store
     # each  collection seperated  on a  different channel  to help  simplify the
     # communication to the server.
     @bayeux.subscribe @server_channel, @on_message
-    @handlers = {}
-
-  on: (name, callback) ->
-    @handlers[name] ||= []
-    console.log @handlers
-    @handlers[name].push callback
-
-  trigger: ->
-    args = []
-    args.push a for a in arguments
-
-    name = args.shift()
-    callbacks = @handlers[name]
-    
-    callback.apply this, args for callback in callbacks
     
   # Publishing  a message  to the  server. If  the message  is a  `function` the
   # system will  first convert it  to json and  then send the  message. Messages
   # should be json.
-  write: (message, callback) ->
-    @on 'sync', callback
+  write: (message) ->
     # NOTE: need to  figure out a way  to determine if this worked  or not. This
     # should be in the documentation for the faye protocal.
     @bayeux.publish @channel, message
@@ -47,10 +31,20 @@ window.Store = class Store
   # This is where we will sync our  client side models back up. The message from
   # the  server will  have  all  the information  needed.  Once  the message  is
   # received it will need to trigger the model update.
-  on_message: (data) ->
+  on_message: (message) ->
     # Grab the key from the message. This will  tell us if the message was for a
     # collection update, model update, or another type of communication.
-    @trigger 'sync', data
+    @[message.method] message.model
+
+  read: (model) ->
+    if @collection.get( model )
+      @collection.get( model ).set model 
+    else
+      @collection.add model
+
+  create: (model) -> @collection.add model
+  update: (model) -> @collection.get( model ).set model 
+  delete: (model) -> @collection.get( model ).view.remove() and @collection.remove( model ) 
 
 # Backbone#sync
 # =============
@@ -61,27 +55,20 @@ window.Store = class Store
 # and we are complete. The callbacks won't do anything right now due to how faye
 # handles communication.
 Backbone.sync = (method, model, success, error) ->
-  syncCallback = (message) ->
-    if model is Backbone.Model
-      switch message.method
-        when 'update' then model.set message.model
-        when 'delete' then model.view.remove()
-    else
-      switch message.method
-        when 'read'
-          if model.get( message.model )
-            model.get( message.model ).set message.model 
-          else
-            model.add message.model
-        when 'create' then model.add message.model
-        when 'update' then model.get( message.model ).set message.model 
-        when 'delete' then model.remove( message.model )
 
 
   # This way  we well  will easily  know if  the client  is requesting  a single
   # object or an array of objects.
-  method = 'readAll' if model.fayeStorage? 
-  store  = model.fayeStorage or model.collection.fayeStorage
+
+  # Grab the collection type so that we can perform operations on it
+  if model.fayeStorage?
+    method           = 'readAll'
+    store            = model.fayeStorage
+    store.collection = model
+  else
+    store            = model.collection.fayeStorage
+    store.collection = model.collection
+
 
   # Wrap what we want to send to the  server in an object NOTE: Other params may
   # be needed to help identify more about what is going on here.
@@ -92,5 +79,5 @@ Backbone.sync = (method, model, success, error) ->
   # Very simple  pass through  for the  faye server.  No work  is needed  on the
   # client side for any of the operations. We will just pass it through and then
   # update the records on the return message from the server.
-  store.write message, syncCallback
+  store.write message
 

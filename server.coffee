@@ -21,18 +21,12 @@ server = http.createServer (request, response) ->
 # and server ) and look for a pattern to persist to the database.
 sync = new RedisSync.Sync
 # Adding in the extension.  It will respond to `incoming` to catch the messages
-bayeux.addExtension sync
+sync.bind bayeux
 
 # Attaching the faye server to the http serve
 bayeux.attach server 
 # Starting the http server on port 1337
 server.listen 1337
-
-# This is the generic push to the client
-push_model = (channel, model) -> bayeux.getClient().publish channel, model
-
-# Listening to `data` will let us know when a message is read from the server
-sync.on 'data', push_model
 
 # Let the user know what is going on
 console.log 'Server running at http://127.0.0.1:1337/'

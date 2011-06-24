@@ -47,11 +47,13 @@ EquipmentView = Backbone.View.extend
   template: _.template $('#item-template').html()
 
   events:
-    'dblclick div.equipment': 'edit'
-    'keyup #fields input ':   'liveSave'
+    'dblclick div.equipment':    'edit'
+    'keyup #fields input' :      'liveSave'
+    'keyup #fields textarea':    'liveSave'
+    'click .equipment-destroy':  'destroy'
 
   initialize: ->
-    _.bindAll @, 'render', 'close', 'setContent'
+    _.bindAll @, 'render', 'close', 'setContent', 'destroy'
     # When ever the model changes we will want to re-render this html element
     @model.bind 'change', @setContent
     @model.view = @
@@ -84,11 +86,10 @@ EquipmentView = Backbone.View.extend
     @notes.val @model.get 'notes'
 
 
-  toggleDone: ->
-    @model.toggle()
-  
-  edit: ->
-    $(@el).addClass 'editing'
+  toggleDone:  -> @model.toggle()
+  edit:        -> $(@el).addClass 'editing'
+  clear:       -> @model.clear()
+  destroy:     -> @model.destroy()
 
   updatedAttributes: ->
     asset_tag_number:  @asset_tag_number.val()
@@ -106,30 +107,18 @@ EquipmentView = Backbone.View.extend
     @model.save @updatedAttributes()
     @close() if e.keyCode is 13
 
-  remove: ->
-    $(@el).remove()
-
-  clear: ->
-    @model.clear()
-
 AppView = Backbone.View.extend
   el: $ '#equipmentapp'
 
-  statsTemplate: _.template $('#stats-template').html()
-
   events:
-    'keypress #asset_tag_number':  'createOnEnter'
-    'keypress #make':              'createOnEnter'
-    'keypress #model_number':      'createOnEnter'
-    'keypress #serial_number':     'createOnEnter'
-    'keypress #notes':             'createOnEnter'
-    'keypress #who_has_it':        'createOnEnter'
+    'keyup #fields input' :      'createOnEnter'
+    'keyup #fields textarea':    'createOnEnter'
 
   initialize: ->
     _.bindAll @, 'addOne', 'addAll', 'render'
     @asset_tag_number = @$ '#asset_tag_number'
     @make             = @$ '#make'
-    @model_number            = @$ '#model_number'
+    @model_number     = @$ '#model_number'
     @serial_number    = @$ '#serial_number'
     @notes            = @$ '#notes'
     @who_has_it       = @$ '#who_has_it'
@@ -145,8 +134,7 @@ AppView = Backbone.View.extend
     view = new EquipmentView model: equipment
     @$('#equipment-list').append view.render().el
 
-  addAll: ->
-    Inventory.each @addOne
+  addAll: -> Inventory.each @addOne
 
   newAttributes: ->
     asset_tag_number:  @$( '#asset_tag_number' ).val()
@@ -180,10 +168,6 @@ AppView = Backbone.View.extend
 
 App = new AppView
 
-
 $('img').each (i,c) ->
-  c.onclick = ->
-    $(c).ImageDrop()
-
-
+  c.onclick = -> $(c).ImageDrop()
 

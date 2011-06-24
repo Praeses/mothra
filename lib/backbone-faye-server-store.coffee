@@ -1,9 +1,9 @@
-# EventEmitter is Node.js events.
+# EventEmitter is  Node.js events. Also pulling  in some other libs  to help out
+# with binding this with functions
 EventEmitter = require( 'events' ).EventEmitter
-util = require 'util'
 _und = require 'underscore'
-# The Sync class will intercept messages from the client
-# and if they are on the correct channel then we will
+# The Sync class will intercept messages from  the client and if they are on the
+# correct channel then we will
 class Sync extends EventEmitter
   
   # When we create a new `Sync` class we are going to connect it to the database
@@ -26,6 +26,12 @@ class Sync extends EventEmitter
     # Hooking into the `delete` event
     @on 'delete' , @delete
 
+  # Here we are going  to take in a `NodeAdapter` and add  this as an extention.
+  # This will allow us to be completelty self contained
+  bind: (bayeux) ->
+    @bayeux = bayeux
+    @bayeux.addExtension @
+
   # The `incoming` function is an extention  of Faye. This function allows us to
   # view all  messages comming over the  faye stack and do  something with them.
   # The first thing we will want to do is filter out the message.
@@ -40,9 +46,6 @@ class Sync extends EventEmitter
     unless regex.test message.channel
       # If we don't like this channel then use pass it through to the callback
       return callback message
- 
-    unless message.data?
-      return callback message
 
     # Now we know that the channel we are on is one we want to do something with
     # So we will fire off an event with  the name of the method ( e.g. `create`,
@@ -53,11 +56,9 @@ class Sync extends EventEmitter
     # registers to the call back as well
     callback message
 
-  key: (base_key, model) ->
-    if model?
-      "#{base_key}:#{model.id}"
-    else
-      base_key 
+  # All keys will have the similar pattern of `collection_name:id`.  This will ensure
+  # that this pattern is followed.
+  key: (base_key, model) -> "#{base_key}:#{model.id}"
 
   create: (base_key, model) ->
     # Create
@@ -87,15 +88,12 @@ class Sync extends EventEmitter
     @publish base_key, model, ( method or 'update' )
 
   delete: (base_key, model) ->
-    @out_log 'delete', base_key, model
-    @client.del @key( base_key, model )
-    @publish base_key, model, 'delete'
+    that = @
+    @client.del @key( base_key, model ), (err,obj) ->
+      that.publish base_key, model, 'delete'
 
   publish: (channel, data, action) ->
     message = { model : data , method : action }
-    @emit 'data', "/server/models/#{channel}", message
-
-   
-
+    @bayeux.getClient().publish "/server/models/#{channel}", message
 
 exports.Sync = Sync
