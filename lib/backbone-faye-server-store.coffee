@@ -1,10 +1,7 @@
-# EventEmitter is  Node.js events. Also pulling  in some other libs  to help out
-# with binding this with functions
-EventEmitter = require( 'events' ).EventEmitter
 _und = require 'underscore'
 # The Sync class will intercept messages from  the client and if they are on the
 # correct channel then we will
-class Sync extends EventEmitter
+class Sync
   
   # When we create a new `Sync` class we are going to connect it to the database
   # and  hook up  some  events  when the  messages  are  received. Each  message
@@ -14,17 +11,6 @@ class Sync extends EventEmitter
     redis  = require('redis')
     @client = redis.createClient()
     _und.bindAll @
-
-    # Hooking in to the `create` event
-    @on 'create' , @create
-    # Hooking in to the `read` event 
-    @on 'read'   , @read
-    # Hooking into the `readAll` event ( NOTE: this will call the `read` event )
-    @on 'readAll' , @readAll
-    # Hooking into the `update` event
-    @on 'update' , @update
-    # Hooking into the `delete` event
-    @on 'delete' , @delete
 
   # Here we are going  to take in a `NodeAdapter` and add  this as an extention.
   # This will allow us to be completelty self contained
@@ -50,7 +36,7 @@ class Sync extends EventEmitter
     # Now we know that the channel we are on is one we want to do something with
     # So we will fire off an event with  the name of the method ( e.g. `create`,
     # `read`, `update`, `destroy` ) and send along the data with it.
-    @emit message.data.method, regex.exec( message.channel )[1], message.data.model
+    @[message.data.method] regex.exec( message.channel )[1], message.data.model
     
     # NOTE: we will also pass this message  along to the call back so others can
     # registers to the call back as well
