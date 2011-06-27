@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
 
     <link rel="stylesheet" href="/css/master.css" >
+    <link rel="stylesheet" href="/css/ui-tooltip.css" >
     <link rel="stylesheet" href='http://fonts.googleapis.com/css?family=Special+Elite' >
 
     <script type="text/javascript" src="/faye.js"> </script>
@@ -22,33 +23,25 @@
       <h1 id="Mothra">MOTHRA</h1>
     </header>
 
-    <!-- equipment App Interface --> 
+    <!-- App Interface --> 
 
     <div id="equipmentapp"> 
 
-      <div class="title"> 
-        <h1>Inventory</h1> 
-      </div> 
-
       <section id="create-equipment"> 
-        <section id="fields">
-          <input id="asset_tag_number" placeholder="What is the Asset Tag?" type="text" /> 
-          <input id="make" placeholder="Make" type="text" /> 
-          <input id="model_number" placeholder="Model" type="text" /> 
-          <input id="serial_number" placeholder="Serial Number" type="text" /> 
-          <input id="who_has_it" placeholder="Who's got it?" type="text" /> 
+        <section class="fields">
+          <input    id= "asset_tag_number" placeholder= "What is the Asset Tag?" type= "text" />
+          <input    id= "make"             placeholder= "Make"                   type= "text" />
+          <input    id= "model_number"     placeholder= "Model"                  type= "text" />
+          <input    id= "serial_number"    placeholder= "Serial Number"          type= "text" />
+          <input    id= "who_has_it"       placeholder= "Who's got it?"          type= "text" />
+          <textarea id= 'notes'            placeholder= "Notes"                  rows= "7"       cols= "40" ></textarea>
         </section>
-        <section id='comments'>
-          <textarea id='notes' name="notes" placeholder="Notes" rows="7" cols="40"></textarea>
-          <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
-        </section>
+        <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
       </section> 
 
       <section id="equipments"> 
         <ul id="equipment-list"></ul> 
       </section> 
-
-      <div id="equipment-stats"></div> 
 
     </div> 
 
@@ -56,31 +49,32 @@
     <!-- Templates --> 
 
     <script type="text/template" id="item-template"> 
-      <div class="equipment">
-        <div class="display">
-          <div class="equipment-asset_tag_number"></div>
-          <div class="equipment-make"></div>
-          <div class="equipment-model_number"></div>
-          <div class="equipment-serial_number"></div>
-          <div class="equipment-who_has_it"></div>
-          <div class="equipment-notes"></div>
+      <section class="equipment">
+        <section class="display">
+          <div  class="equipment-asset_tag_number"></div>
+          <div  class="equipment-make"></div>
+          <div  class="equipment-model_number"></div>
+          <div  class="equipment-serial_number"></div>
+          <div  class="equipment-who_has_it"></div>
+          <div  class="equipment-notes"></div>
           <span class="equipment-destroy"></span>
           <!--
             <img class='checkout' src='images/checkout.png' ></canvas>
           -->
-        </div>
-        <div class="edit">
-          <div id="fields">
-            <input class="asset_tag_number" placeholder="What is the Asset Tag?" type="text" /> 
-            <input class="make" placeholder="Make" type="text" /> 
-            <input class="model_number" placeholder="Model" type="text" /> 
-            <input class="serial_number" placeholder="Serial Number" type="text" /> 
-            <input class="who_has_it" placeholder="Who's got it?" type="text" /> 
-          </div>
-          <textarea class='notes' name="notes" placeholder="Notes" rows="8" cols="40"></textarea>
+        </section>
+        <section class="edit">
+          <section class="fields">
+            <input    class= "asset_tag_number" placeholder= "What is the Asset Tag?" type= "text" />
+            <input    class= "make"             placeholder= "Make"                   type= "text" />
+            <input    class= "model_number"     placeholder= "Model"                  type= "text" />
+            <input    class= "serial_number"    placeholder= "Serial Number"          type= "text" />
+            <input    class= "who_has_it"       placeholder= "Who's got it?"          type= "text" />
+            <textarea class= 'notes'            placeholder= "Notes"                  rows= "8"       cols= "40" ></textarea>
+
+          </section>
           <span class="ui-tooltip-top" style="display:none;">Press Enter to save this task</span> 
-        </div>
-      </div>
+        </section>
+      </section>
     </script> 
 
     <footer> </footer>

@@ -25,9 +25,9 @@
     tagName: 'li',
     template: _.template($('#item-template').html()),
     events: {
-      'dblclick div.equipment': 'edit',
-      'keyup #fields input': 'liveSave',
-      'keyup #fields textarea': 'liveSave',
+      'dblclick .equipment': 'edit',
+      'keyup .fields input': 'liveSave',
+      'keyup .fields textarea': 'liveSave',
       'click .equipment-destroy': 'destroy'
     },
     initialize: function() {

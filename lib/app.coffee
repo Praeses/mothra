@@ -47,9 +47,9 @@ EquipmentView = Backbone.View.extend
   template: _.template $('#item-template').html()
 
   events:
-    'dblclick div.equipment':    'edit'
-    'keyup #fields input' :      'liveSave'
-    'keyup #fields textarea':    'liveSave'
+    'dblclick .equipment':       'edit'
+    'keyup .fields input' :      'liveSave'
+    'keyup .fields textarea':    'liveSave'
     'click .equipment-destroy':  'destroy'
 
   initialize: ->
@@ -65,11 +65,11 @@ EquipmentView = Backbone.View.extend
 
   setContent: ->
     @$('.equipment-asset_tag_number').text @model.get 'asset_tag_number'
-    @$('.equipment-make').text @model.get 'make'
-    @$('.equipment-model_number').text @model.get 'model_number'
-    @$('.equipment-serial_number').text @model.get 'serial_number'
-    @$('.equipment-who_has_it').text @model.get 'who_has_it'
-    @$('.equipment-notes').text @model.get 'notes'
+    @$('.equipment-make').text             @model.get 'make'
+    @$('.equipment-model_number').text     @model.get 'model_number'
+    @$('.equipment-serial_number').text    @model.get 'serial_number'
+    @$('.equipment-who_has_it').text       @model.get 'who_has_it'
+    @$('.equipment-notes').text            @model.get 'notes'
 
     @asset_tag_number = @$ '.asset_tag_number'
     @make             = @$ '.make'
@@ -79,11 +79,11 @@ EquipmentView = Backbone.View.extend
     @notes            = @$ '.notes'
 
     @asset_tag_number.val @model.get 'asset_tag_number'
-    @make.val @model.get 'make'
-    @model_number.val @model.get 'model_number'
-    @serial_number.val @model.get 'serial_number'
-    @who_has_it.val @model.get 'who_has_it'
-    @notes.val @model.get 'notes'
+    @make.val             @model.get 'make'
+    @model_number.val     @model.get 'model_number'
+    @serial_number.val    @model.get 'serial_number'
+    @who_has_it.val       @model.get 'who_has_it'
+    @notes.val            @model.get 'notes'
 
 
   toggleDone:  -> @model.toggle()

@@ -1,0 +1,197 @@
+@background-color:  black;
+@text-color:        white;
+
+.shadow(){
+  @shadow:             rgba(255, 255, 255, 0.2) 0 15px 16px 0;
+  -moz-box-shadow:     @shadow;
+  -webkit-box-shadow:  @shadow;
+  -o-box-shadow:       @shadow;
+  box-shadow:          @shadow;
+}
+
+.shadow-inset(){
+  @shadow-inset:       rgba(255, 255, 255, 0.2) 0 3px 6px 0 inset;
+  -moz-box-shadow:     @shadow-inset;
+  -webkit-box-shadow:  @shadow-inset;
+  -o-box-shadow:       @shadow-inset;
+  box-shadow:          @shadow-inset;
+}
+
+.messy-borders(){
+  &:nth-child(5n+1){
+    -moz-border-radius:     1em 4em 1em 4em;
+    -webkit-border-radius:  1em 4em 1em 4em;
+    border-radius:          1em 4em 1em 4em;
+  }
+
+  &:nth-child(5n+2){
+    -moz-border-radius:     2em 3em 3em 1em;
+    -webkit-border-radius:  2em 3em 3em 1em;
+    border-radius:          2em 3em 3em 1em;
+  }
+  &:nth-child(5n+3){
+    -moz-border-radius:     2em 4em 1em 3em;
+    -webkit-border-radius:  2em 4em 1em 3em;
+    border-radius:          2em 4em 1em 3em;
+  }
+  &:nth-child(5n+4){
+    -moz-border-radius:     2em 1em 3em 4em;
+    -webkit-border-radius:  2em 1em 3em 4em;
+    border-radius:          2em 1em 3em 4em;
+  }
+  &:nth-child(5n+5){
+    -moz-border-radius:     1em 2em 4em 1em;
+    -webkit-border-radius:  1em 2em 4em 1em;
+    border-radius:          1em 2em 4em 1em;
+  }
+}
+
+.messy-input-colors(){
+  &:nth-child(4n+1) { background-color: #99E0FF; }
+  &:nth-child(4n+2) { background-color: #A4FFBF; }
+  &:nth-child(4n+3) { background-color: #FFDC94; }
+  &:nth-child(4n+4) { background-color: #CCD3FF; }
+}
+
+.messy-lines(){
+  &:nth-child(3n+1) {
+    -webkit-transform:     rotate(-0.6deg);
+    -rotatemoz-transform:  rotate(-0.6deg);
+    transform:             rotate(-0.6deg);
+  }
+  &:nth-child(3n+2) {
+    -webkit-transform:     rotate( 0.2deg);
+    -rotatemoz-transform:  rotate( 0.2deg);
+    transform:             rotate( 0.2deg);
+  }
+  &:nth-child(3n+3) {
+    -webkit-transform:     rotate(-0.4deg);
+    -rotatemoz-transform:  rotate(-0.4deg);
+    transform:             rotate(-0.4deg);
+  }
+}
+// RESET
+html, body, ul, ol, li, form, fieldset, legend {
+  margin:   0;
+  padding:  0;
+}
+
+body {
+  color:        @text-color;
+  background:   @background-color;
+  font-family:  'Special Elite', arial, serif;
+  font-size:    30px;
+}
+
+#equipmentapp {
+  color:       @text-color;
+  background:  @background-color;
+  width:       1000px;
+  margin:      0 auto 40px;
+  padding:     20px;
+  position:    relative;
+  top:         -140px;
+
+  header h1 {
+    font-size:    36px;
+    font-weight:  bold;
+    text-align:   center;
+    padding:      20px 0 30px 0;
+    line-height:  1;
+  }
+
+  .fields { width: 400px;
+    input, textarea {
+      border:              1px solid #999999;
+      font-size:           24px;
+      font-family:         inherit;
+      line-height:         1.4em;
+      width:               400px;
+      padding:             6px;
+      outline:             none;
+      .shadow-inset();
+
+      &::-webkit-input-placeholder { font-style: italic; }
+  
+      .messy-lines();
+      .messy-input-colors();
+      .messy-borders();
+    }
+
+  }
+}
+
+#create-equipment {
+  width:   420px;
+  margin:  0 auto 40px;
+
+  span {
+    left:         50%;
+    margin-left:  -85px;
+    position:     absolute;
+    width:        170px;
+    z-index:      999;
+  }
+}
+
+
+#equipment-list { margin-top: 10px;
+  li {
+    border-bottom:  1px solid #cccccc;
+    font-size:      24px;
+    line-height:    1.1em;
+    padding:        12px 20px 11px 0;
+    position:       relative;
+
+    &:after {
+      clear:       both;
+      content:     "\0020";
+      display:     block;
+      height:      0;
+      overflow:    hidden;
+      visibility:  hidden;
+    }
+
+    .messy-lines();
+  }
+
+  .display { text-shadow: 2px 2px 2px #30A660; }
+
+  .editing { border-bottom: 0; padding: 0;
+    .display { display: none; }
+  }
+
+  .edit           { display: none; }
+  .editing .edit  { display: block; }
+
+  .check {
+    float:     left;
+    margin:    0 10px 0 7px;
+    position:  relative;
+    top:       9px;
+  }
+  
+  .done .equipment-content { text-decoration: line-through; color: #777777; }
+
+  .equipment-destroy {
+    background:  url(/images/destroy.png) no-repeat 0 0;
+    cursor:      pointer;
+    display:     none;
+    height:      20px;
+    position:    absolute;
+    right:       5px;
+    top:         14px;
+    width:       20px;
+  }
+
+  &:hover .equipment-destroy { display: block;
+    &:hover { background-position: 0 -20px; } 
+  }
+}
+
+.checkout {
+  cursor:    pointer;
+  left:      150px;
+  position:  absolute;
+  top:       40px;
+}
