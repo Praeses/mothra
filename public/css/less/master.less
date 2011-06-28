@@ -3,7 +3,7 @@
 @shadow-color:      0;
 
 .shadow(){
-  @shadow:             rgba(@shadow-color, @shadow-color, @shadow-color, 0.3) 5px 15px 16px 5px;
+  @shadow:             rgba(@shadow-color, @shadow-color, @shadow-color, 0.3) 1em 2em 2em 1em;
   -moz-box-shadow:     @shadow;
   -webkit-box-shadow:  @shadow;
   -o-box-shadow:       @shadow;
@@ -74,7 +74,6 @@ body {
   color:        @text-color;
   background:   @background-color;
   font-family:  'Special Elite', arial, serif;
-  font-size:    30px;
 }
 
 h1 {
@@ -83,32 +82,31 @@ h1 {
 
   &:hover {
     text-shadow: 
-       1px  1px #99E0FF, 
-       2px  2px #A4FFBF, 
-       3px  3px #FFDC94, 
-       4px  4px #CCD3FF, 
-       5px  5px #99E0FF, 
-       6px  6px #A4FFBF, 
-       7px  7px #FFDC94, 
-       8px  8px #CCD3FF, 
-       9px  9px #99E0FF, 
-      10px 10px #A4FFBF, 
-      11px 11px #FFDC94,
-      12px 12px #CCD3FF;
+       1em  1em #99E0FF, 
+       2em  2em #A4FFBF, 
+       3em  3em #FFDC94, 
+       4em  4em #CCD3FF, 
+       5em  5em #99E0FF, 
+       6em  6em #A4FFBF, 
+       7em  7em #FFDC94, 
+       8em  8em #CCD3FF, 
+       9em  9em #99E0FF, 
+      10em 10em #A4FFBF, 
+      11em 11em #FFDC94,
+      12em 12em #CCD3FF;
   }
 }
 
 #equipmentapp {
   color:       @text-color;
   background:  @background-color;
-  width:       1000px;
-  margin:      0 auto 40px;
-  padding:     20px;
+  width:       60em;
+  margin:      0 auto 4em;
+  padding:     2em;
   position:    relative;
-  top:         -100px;
   .shadow-inset();
 
-  .fields { width: 400px;
+  .fields { width: 40em;
     input, textarea {
       border:              1px solid #999999;
       font-size:           24px;
@@ -121,12 +119,8 @@ h1 {
 
       &::-webkit-input-placeholder { font-style: italic; }
   
-      -webkit-transition-property:  -webkit-border-radius, background-color, -webkit-transform;
-      -webkit-transition-duration:  0.12s, 0.12s, 0.12s;
-      -webkit-transition-timing-function: ease-in, ease-in, ease-in;
-      transition-property:  border-radius, background-color, transform;
-      transition-duration: 0.12s, 0.12s, 0.12s;
-      transition-timing-function: ease-in, ease-in, ease-in;
+      -webkit-transition: all 0.12s ease-in;
+      transition: all 0.12s ease-in;
 
       .messy-lines();
       .messy-input-colors();
@@ -171,6 +165,18 @@ h1 {
 
 #equipments{
   padding: 2em;
+  label {
+    &:nth-child(odd){
+      color:blue;
+      font-size:small;
+    }
+
+    &:nth-child(even){
+      color:red;
+      display:block;
+      padding-left: 2em;
+    }
+  }
 }
 
 #equipment-list { margin-top: 10px;
@@ -180,6 +186,12 @@ h1 {
     line-height:    1.1em;
     padding:        12px 20px 11px 0;
     position:       relative;
+    display:inline-block;
+    width: 400px;
+
+    &:nth-child(even){
+      float:right;
+    }
 
     &:after {
       clear:       both;
@@ -190,14 +202,16 @@ h1 {
       visibility:  hidden;
     }
 
-    -webkit-transition: -webkit-transform 0.12s ease-in;
-    transition: transform 0.5s ease-in;
+    -webkit-transition: all 0.12s ease-in;
+    transition: all 0.12s ease-in;
 
     .messy-lines();
 
     &:hover{
       -webkit-transform: rotate(0deg) scale(1.1);
       transform:         rotate(0deg) scale(1.1);
+      background-color: yellow;
+      .shadow();
     }
 
     .check {
