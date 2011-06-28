@@ -41,10 +41,10 @@ h1:hover {
   padding: 20px;
   position: relative;
   top: -100px;
-  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
-  -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
 }
 #equipmentapp .fields {
   width: 400px;
@@ -57,15 +57,15 @@ h1:hover {
   width: 400px;
   padding: 6px;
   outline: none;
-  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
-  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
-  -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.2), inset 0 0 0.2em rgba(0, 0, 0, 0.3);
   -webkit-transition-property: -webkit-border-radius, background-color, -webkit-transform;
-  -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-transition-duration: 0.12s, 0.12s, 0.12s;
   -webkit-transition-timing-function: ease-in, ease-in, ease-in;
   transition-property: border-radius, background-color, transform;
-  transition-duration: 0.5s, 0.5s, 0.5s;
+  transition-duration: 0.12s, 0.12s, 0.12s;
   transition-timing-function: ease-in, ease-in, ease-in;
 }
 #equipmentapp .fields input::-webkit-input-placeholder, #equipmentapp .fields textarea::-webkit-input-placeholder {
@@ -116,8 +116,8 @@ h1:hover {
   border-radius: 1em 2em 4em 1em;
 }
 #equipmentapp .fields input:focus, #equipmentapp .fields textarea:focus {
-  -webkit-border-radius: 1em 1em 1em 1em;
-  border-radius: 1em 1em 1em 1em;
+  -webkit-border-radius: 0.3em;
+  border-radius: 0.3em;
   background-color: #FFF;
   -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
@@ -131,10 +131,10 @@ h1:hover {
   display: inline-block;
   left: 290px;
   z-index: 100;
-  -webkit-transition: top 1s ease-in;
-  -moz-transition: top 1s ease-in;
-  -o-transition: top 1s ease-in;
-  transition: top 1s ease-in;
+  -webkit-transition: top 0.12s ease-in;
+  -moz-transition: top 0.5s ease-in;
+  -o-transition: top 0.5s ease-in;
+  transition: top 0.5s ease-in;
 }
 #create-equipment:hover {
   top: 10px;
@@ -158,7 +158,7 @@ h1:hover {
   line-height: 1.1em;
   padding: 12px 20px 11px 0;
   position: relative;
-  -webkit-transition: -webkit-transform 0.5s ease-in;
+  -webkit-transition: -webkit-transform 0.12s ease-in;
   transition: transform 0.5s ease-in;
 }
 #equipment-list li:after {
