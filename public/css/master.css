@@ -23,6 +23,10 @@ body {
   padding: 20px;
   position: relative;
   top: -140px;
+  -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  -o-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
 }
 #equipmentapp header h1 {
   font-size: 36px;
@@ -42,27 +46,27 @@ body {
   width: 400px;
   padding: 6px;
   outline: none;
-  -moz-box-shadow: rgba(255, 255, 255, 0.2) 0 3px 6px 0 inset;
-  -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 3px 6px 0 inset;
-  -o-box-shadow: rgba(255, 255, 255, 0.2) 0 3px 6px 0 inset;
-  box-shadow: rgba(255, 255, 255, 0.2) 0 3px 6px 0 inset;
+  -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  -o-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  -webkit-transition-property: -webkit-border-radius, background-color, -webkit-transform;
+  -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
+  -webkit-transition-timing-function: ease-in, ease-in, ease-in;
 }
 #equipmentapp .fields input::-webkit-input-placeholder, #equipmentapp .fields textarea::-webkit-input-placeholder {
   font-style: italic;
 }
 #equipmentapp .fields input:nth-child(3n+1), #equipmentapp .fields textarea:nth-child(3n+1) {
   -webkit-transform: rotate(-0.6deg);
-  -rotatemoz-transform: rotate(-0.6deg);
   transform: rotate(-0.6deg);
 }
 #equipmentapp .fields input:nth-child(3n+2), #equipmentapp .fields textarea:nth-child(3n+2) {
   -webkit-transform: rotate(0.2deg);
-  -rotatemoz-transform: rotate(0.2deg);
   transform: rotate(0.2deg);
 }
 #equipmentapp .fields input:nth-child(3n+3), #equipmentapp .fields textarea:nth-child(3n+3) {
   -webkit-transform: rotate(-0.4deg);
-  -rotatemoz-transform: rotate(-0.4deg);
   transform: rotate(-0.4deg);
 }
 #equipmentapp .fields input:nth-child(4n+1), #equipmentapp .fields textarea:nth-child(4n+1) {
@@ -78,33 +82,44 @@ body {
   background-color: #CCD3FF;
 }
 #equipmentapp .fields input:nth-child(5n+1), #equipmentapp .fields textarea:nth-child(5n+1) {
-  -moz-border-radius: 1em 4em 1em 4em;
   -webkit-border-radius: 1em 4em 1em 4em;
   border-radius: 1em 4em 1em 4em;
 }
 #equipmentapp .fields input:nth-child(5n+2), #equipmentapp .fields textarea:nth-child(5n+2) {
-  -moz-border-radius: 2em 3em 3em 1em;
   -webkit-border-radius: 2em 3em 3em 1em;
   border-radius: 2em 3em 3em 1em;
 }
 #equipmentapp .fields input:nth-child(5n+3), #equipmentapp .fields textarea:nth-child(5n+3) {
-  -moz-border-radius: 2em 4em 1em 3em;
   -webkit-border-radius: 2em 4em 1em 3em;
   border-radius: 2em 4em 1em 3em;
 }
 #equipmentapp .fields input:nth-child(5n+4), #equipmentapp .fields textarea:nth-child(5n+4) {
-  -moz-border-radius: 2em 1em 3em 4em;
   -webkit-border-radius: 2em 1em 3em 4em;
   border-radius: 2em 1em 3em 4em;
 }
 #equipmentapp .fields input:nth-child(5n+5), #equipmentapp .fields textarea:nth-child(5n+5) {
-  -moz-border-radius: 1em 2em 4em 1em;
   -webkit-border-radius: 1em 2em 4em 1em;
   border-radius: 1em 2em 4em 1em;
+}
+#equipmentapp .fields input:focus, #equipmentapp .fields textarea:focus {
+  border-radius: 1em 1em 1em 1em;
+  background-color: #FFF;
+  transform: rotate(0deg);
 }
 #create-equipment {
   width: 420px;
   margin: 0 auto 40px;
+  position: absolute;
+  top: -500px;
+  left: 290px;
+  z-index: 100;
+  -webkit-transition: top 1s ease-in;
+  -moz-transition: top 1s ease-in;
+  -o-transition: top 1s ease-in;
+  transition: top 1s ease-in;
+}
+#create-equipment:hover {
+  top: 10px;
 }
 #create-equipment span {
   left: 50%;
@@ -133,18 +148,41 @@ body {
 }
 #equipment-list li:nth-child(3n+1) {
   -webkit-transform: rotate(-0.6deg);
-  -rotatemoz-transform: rotate(-0.6deg);
   transform: rotate(-0.6deg);
 }
 #equipment-list li:nth-child(3n+2) {
   -webkit-transform: rotate(0.2deg);
-  -rotatemoz-transform: rotate(0.2deg);
   transform: rotate(0.2deg);
 }
 #equipment-list li:nth-child(3n+3) {
   -webkit-transform: rotate(-0.4deg);
-  -rotatemoz-transform: rotate(-0.4deg);
   transform: rotate(-0.4deg);
+}
+#equipment-list li .check {
+  float: left;
+  margin: 0 10px 0 7px;
+  position: relative;
+  top: 9px;
+}
+#equipment-list li .done .equipment-content {
+  text-decoration: line-through;
+  color: #777777;
+}
+#equipment-list li .equipment-destroy {
+  background: url(/images/destroy.png) no-repeat 0 0;
+  cursor: pointer;
+  display: none;
+  height: 20px;
+  position: absolute;
+  right: 5px;
+  top: 14px;
+  width: 20px;
+}
+#equipment-list li:hover .equipment-destroy {
+  display: block;
+}
+#equipment-list li:hover .equipment-destroy:hover {
+  background-position: 0 -20px;
 }
 #equipment-list .display {
   text-shadow: 2px 2px 2px #30A660;
@@ -162,35 +200,37 @@ body {
 #equipment-list .editing .edit {
   display: block;
 }
-#equipment-list .check {
-  float: left;
-  margin: 0 10px 0 7px;
-  position: relative;
-  top: 9px;
-}
-#equipment-list .done .equipment-content {
-  text-decoration: line-through;
-  color: #777777;
-}
-#equipment-list .equipment-destroy {
-  background: url(/images/destroy.png) no-repeat 0 0;
-  cursor: pointer;
-  display: none;
-  height: 20px;
-  position: absolute;
-  right: 5px;
-  top: 14px;
-  width: 20px;
-}
-#equipment-list:hover .equipment-destroy {
-  display: block;
-}
-#equipment-list:hover .equipment-destroy:hover {
-  background-position: 0 -20px;
-}
 .checkout {
   cursor: pointer;
   left: 150px;
   position: absolute;
   top: 40px;
+}
+#equipmentapp:before, #equipmentapp:after {
+  position: absolute;
+  width: 40%;
+  height: 10px;
+  content: ' ';
+  left: 12px;
+  bottom: 12px;
+  background: transparent;
+  -webkit-transform: skew(-5deg) rotate(-5deg);
+  -moz-transform: skew(-5deg) rotate(-5deg);
+  -ms-transform: skew(-5deg) rotate(-5deg);
+  -o-rotatetransform: skew(-5deg) rotate(-5deg);
+  transform: skew(-5deg) rotate(-5deg deg);
+  -moz-box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
+  -o-box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
+  box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
+  z-index: -1;
+}
+#equipmentapp:after {
+  left: auto;
+  right: 12px;
+  -webkit-transform: skew(5deg) rotate(5deg);
+  -moz-transform: skew(5deg) rotatete(5deg);
+  -ms-transform: skew(5deg) rotate(5deg);
+  -o-transform: skew(transform 5deg) rotate(5deg);
+  transform: skew(5deg) rotate(5deg);
 }

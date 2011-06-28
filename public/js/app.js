@@ -96,8 +96,8 @@
   AppView = Backbone.View.extend({
     el: $('#equipmentapp'),
     events: {
-      'keyup #fields input': 'createOnEnter',
-      'keyup #fields textarea': 'createOnEnter'
+      'keyup .fields input': 'createOnEnter',
+      'keyup .fields textarea': 'createOnEnter'
     },
     initialize: function() {
       _.bindAll(this, 'addOne', 'addAll', 'render');
