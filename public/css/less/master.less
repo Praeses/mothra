@@ -1,8 +1,9 @@
-@background-color:  black;
-@text-color:        white;
+@background-color:  white;
+@text-color:        black;
+@shadow-color:      0;
 
 .shadow(){
-  @shadow:             rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
+  @shadow:             rgba(@shadow-color, @shadow-color, @shadow-color, 0.3) 5px 15px 16px 5px;
   -moz-box-shadow:     @shadow;
   -webkit-box-shadow:  @shadow;
   -o-box-shadow:       @shadow;
@@ -10,7 +11,7 @@
 }
 
 .shadow-inset(){
-  @shadow-inset:       0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  @shadow-inset:       0 0 20px rgba(@shadow-color, @shadow-color, @shadow-color, 0.2), inset 0 0 60px rgba(@shadow-color, @shadow-color, @shadow-color, 0.3);
   -moz-box-shadow:     @shadow-inset;
   -webkit-box-shadow:  @shadow-inset;
   -o-box-shadow:       @shadow-inset;
@@ -51,16 +52,16 @@
 
 .messy-lines(){
   &:nth-child(3n+1) {
-    -webkit-transform:  rotate(-0.6deg);
-    transform:          rotate(-0.6deg);
+    -webkit-transform:  rotate(-1.6deg);
+    transform:          rotate(-1.6deg);
   }
   &:nth-child(3n+2) {
-    -webkit-transform:  rotate( 0.2deg);
-    transform:          rotate( 0.2deg);
+    -webkit-transform:  rotate( 0.8deg);
+    transform:          rotate( 0.8deg);
   }
   &:nth-child(3n+3) {
-    -webkit-transform:  rotate(-0.4deg);
-    transform:          rotate(-0.4deg);
+    -webkit-transform:  rotate(-0.9deg);
+    transform:          rotate(-0.9deg);
   }
 }
 // RESET
@@ -76,6 +77,27 @@ body {
   font-size:    30px;
 }
 
+h1 {
+  -webkit-transition:  all 0.15s ease-out;
+  transition:          all 0.15s ease-out;
+
+  &:hover {
+    text-shadow: 
+       1px  1px #99E0FF, 
+       2px  2px #A4FFBF, 
+       3px  3px #FFDC94, 
+       4px  4px #CCD3FF, 
+       5px  5px #99E0FF, 
+       6px  6px #A4FFBF, 
+       7px  7px #FFDC94, 
+       8px  8px #CCD3FF, 
+       9px  9px #99E0FF, 
+      10px 10px #A4FFBF, 
+      11px 11px #FFDC94,
+      12px 12px #CCD3FF;
+  }
+}
+
 #equipmentapp {
   color:       @text-color;
   background:  @background-color;
@@ -83,16 +105,8 @@ body {
   margin:      0 auto 40px;
   padding:     20px;
   position:    relative;
-  top:         -140px;
+  top:         -100px;
   .shadow-inset();
-
-  header h1 {
-    font-size:    36px;
-    font-weight:  bold;
-    text-align:   center;
-    padding:      20px 0 30px 0;
-    line-height:  1;
-  }
 
   .fields { width: 400px;
     input, textarea {
@@ -110,14 +124,19 @@ body {
       -webkit-transition-property:  -webkit-border-radius, background-color, -webkit-transform;
       -webkit-transition-duration:  0.5s, 0.5s, 0.5s;
       -webkit-transition-timing-function: ease-in, ease-in, ease-in;
+      transition-property:  border-radius, background-color, transform;
+      transition-duration:  0.5s, 0.5s, 0.5s;
+      transition-timing-function: ease-in, ease-in, ease-in;
 
       .messy-lines();
       .messy-input-colors();
       .messy-borders();
       &:focus{
-        border-radius:     1em 1em 1em 1em;
-        background-color:  #FFF;
-        transform:         rotate(0deg);
+        -webkit-border-radius:  1em 1em 1em 1em;
+        border-radius:          1em 1em 1em 1em;
+        background-color:       #FFF;
+        -webkit-transform:      rotate(0deg);
+        transform:              rotate(0deg);
       }
     }
 
@@ -128,9 +147,11 @@ body {
   width:     420px;
   margin:    0 auto 40px;
   position:  absolute;
-  top:       -500px;
-  left: 290px;
-  z-index: 100;
+  top:       -540px;
+  height:    580px;
+  display:   inline-block;
+  left:      290px;
+  z-index:   100;
 
   -webkit-transition:  top 1s ease-in;
   -moz-transition:     top 1s ease-in;
@@ -148,6 +169,9 @@ body {
   }
 }
 
+#equipments{
+  padding: 2em;
+}
 
 #equipment-list { margin-top: 10px;
   li {
@@ -166,7 +190,15 @@ body {
       visibility:  hidden;
     }
 
+    -webkit-transition: -webkit-transform 0.5s ease-in;
+    transition: transform 0.5s ease-in;
+
     .messy-lines();
+
+    &:hover{
+      -webkit-transform: rotate(0deg) scale(1.1);
+      transform:         rotate(0deg) scale(1.1);
+    }
 
     .check {
       float:     left;

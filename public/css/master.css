@@ -10,30 +10,41 @@ legend {
   padding: 0;
 }
 body {
-  color: white;
-  background: black;
+  color: black;
+  background: white;
   font-family: 'Special Elite', arial, serif;
   font-size: 30px;
 }
+h1 {
+  -webkit-transition: all 0.15s ease-out;
+  transition: all 0.15s ease-out;
+}
+h1:hover {
+  text-shadow: 1px  1px #99E0FF, 
+       2px  2px #A4FFBF, 
+       3px  3px #FFDC94, 
+       4px  4px #CCD3FF, 
+       5px  5px #99E0FF, 
+       6px  6px #A4FFBF, 
+       7px  7px #FFDC94, 
+       8px  8px #CCD3FF, 
+       9px  9px #99E0FF, 
+      10px 10px #A4FFBF, 
+      11px 11px #FFDC94,
+      12px 12px #CCD3FF;
+}
 #equipmentapp {
-  color: white;
-  background: black;
+  color: black;
+  background: white;
   width: 1000px;
   margin: 0 auto 40px;
   padding: 20px;
   position: relative;
-  top: -140px;
-  -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
-  -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
-  -o-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
-}
-#equipmentapp header h1 {
-  font-size: 36px;
-  font-weight: bold;
-  text-align: center;
-  padding: 20px 0 30px 0;
-  line-height: 1;
+  top: -100px;
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
 }
 #equipmentapp .fields {
   width: 400px;
@@ -46,28 +57,31 @@ body {
   width: 400px;
   padding: 6px;
   outline: none;
-  -moz-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
-  -webkit-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
-  -o-box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 80px rgba(255, 255, 255, 0.3);
+  -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  -o-box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), inset 0 0 60px rgba(0, 0, 0, 0.3);
   -webkit-transition-property: -webkit-border-radius, background-color, -webkit-transform;
   -webkit-transition-duration: 0.5s, 0.5s, 0.5s;
   -webkit-transition-timing-function: ease-in, ease-in, ease-in;
+  transition-property: border-radius, background-color, transform;
+  transition-duration: 0.5s, 0.5s, 0.5s;
+  transition-timing-function: ease-in, ease-in, ease-in;
 }
 #equipmentapp .fields input::-webkit-input-placeholder, #equipmentapp .fields textarea::-webkit-input-placeholder {
   font-style: italic;
 }
 #equipmentapp .fields input:nth-child(3n+1), #equipmentapp .fields textarea:nth-child(3n+1) {
-  -webkit-transform: rotate(-0.6deg);
-  transform: rotate(-0.6deg);
+  -webkit-transform: rotate(-1.6deg);
+  transform: rotate(-1.6deg);
 }
 #equipmentapp .fields input:nth-child(3n+2), #equipmentapp .fields textarea:nth-child(3n+2) {
-  -webkit-transform: rotate(0.2deg);
-  transform: rotate(0.2deg);
+  -webkit-transform: rotate(0.8deg);
+  transform: rotate(0.8deg);
 }
 #equipmentapp .fields input:nth-child(3n+3), #equipmentapp .fields textarea:nth-child(3n+3) {
-  -webkit-transform: rotate(-0.4deg);
-  transform: rotate(-0.4deg);
+  -webkit-transform: rotate(-0.9deg);
+  transform: rotate(-0.9deg);
 }
 #equipmentapp .fields input:nth-child(4n+1), #equipmentapp .fields textarea:nth-child(4n+1) {
   background-color: #99E0FF;
@@ -102,15 +116,19 @@ body {
   border-radius: 1em 2em 4em 1em;
 }
 #equipmentapp .fields input:focus, #equipmentapp .fields textarea:focus {
+  -webkit-border-radius: 1em 1em 1em 1em;
   border-radius: 1em 1em 1em 1em;
   background-color: #FFF;
+  -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
 }
 #create-equipment {
   width: 420px;
   margin: 0 auto 40px;
   position: absolute;
-  top: -500px;
+  top: -540px;
+  height: 580px;
+  display: inline-block;
   left: 290px;
   z-index: 100;
   -webkit-transition: top 1s ease-in;
@@ -128,6 +146,9 @@ body {
   width: 170px;
   z-index: 999;
 }
+#equipments {
+  padding: 2em;
+}
 #equipment-list {
   margin-top: 10px;
 }
@@ -137,6 +158,8 @@ body {
   line-height: 1.1em;
   padding: 12px 20px 11px 0;
   position: relative;
+  -webkit-transition: -webkit-transform 0.5s ease-in;
+  transition: transform 0.5s ease-in;
 }
 #equipment-list li:after {
   clear: both;
@@ -147,16 +170,20 @@ body {
   visibility: hidden;
 }
 #equipment-list li:nth-child(3n+1) {
-  -webkit-transform: rotate(-0.6deg);
-  transform: rotate(-0.6deg);
+  -webkit-transform: rotate(-1.6deg);
+  transform: rotate(-1.6deg);
 }
 #equipment-list li:nth-child(3n+2) {
-  -webkit-transform: rotate(0.2deg);
-  transform: rotate(0.2deg);
+  -webkit-transform: rotate(0.8deg);
+  transform: rotate(0.8deg);
 }
 #equipment-list li:nth-child(3n+3) {
-  -webkit-transform: rotate(-0.4deg);
-  transform: rotate(-0.4deg);
+  -webkit-transform: rotate(-0.9deg);
+  transform: rotate(-0.9deg);
+}
+#equipment-list li:hover {
+  -webkit-transform: rotate(0deg) scale(1.1);
+  transform: rotate(0deg) scale(1.1);
 }
 #equipment-list li .check {
   float: left;
@@ -219,10 +246,10 @@ body {
   -ms-transform: skew(-5deg) rotate(-5deg);
   -o-rotatetransform: skew(-5deg) rotate(-5deg);
   transform: skew(-5deg) rotate(-5deg deg);
-  -moz-box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
-  -webkit-box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
-  -o-box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
-  box-shadow: rgba(255, 255, 255, 0.3) 5px 15px 16px 5px;
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 5px 15px 16px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 5px 15px 16px 5px;
+  -o-box-shadow: rgba(0, 0, 0, 0.3) 5px 15px 16px 5px;
+  box-shadow: rgba(0, 0, 0, 0.3) 5px 15px 16px 5px;
   z-index: -1;
 }
 #equipmentapp:after {
