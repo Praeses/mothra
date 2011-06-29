@@ -3,7 +3,7 @@
 @shadow-color:      0;
 
 .shadow(){
-  @shadow:             rgba(@shadow-color, @shadow-color, @shadow-color, 0.3) 0 0 0.7em 0.7em;
+  @shadow:             rgba(@shadow-color, @shadow-color, @shadow-color, 0.3) 5px 9px 5px;
   -moz-box-shadow:     @shadow;
   -webkit-box-shadow:  @shadow;
   -o-box-shadow:       @shadow;
@@ -12,8 +12,8 @@
 
 .shadow-inset(){
   @shadow-inset:       
-    rgba(@shadow-color, @shadow-color, @shadow-color, 0.2) 0 0.7em 0.7em , 
-    rgba(@shadow-color, @shadow-color, @shadow-color, 0.3) 0 0 0.7em  inset;
+    rgba(@shadow-color, @shadow-color, @shadow-color, 0.2) 5px 9px 5px , 
+    rgba(@shadow-color, @shadow-color, @shadow-color, 0.3) 1px 1px 1px  inset;
   -moz-box-shadow:     @shadow-inset;
   -webkit-box-shadow:  @shadow-inset;
   -o-box-shadow:       @shadow-inset;
@@ -73,29 +73,31 @@ html, body, ul, ol, li, form, fieldset, legend {
 }
 
 body {
-  color:        @text-color;
-  background:   @background-color;
-  font-family:  'Special Elite', arial, serif;
+  color:             @text-color;
+  background:        @background-color;
+  background-image:  url(data:image/png;base64,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);
+  font-family:       'Special Elite', arial, serif;
 }
 
-h1 {
-  -webkit-transition:  all 0.15s ease-out;
-  transition:          all 0.15s ease-out;
+.auth {
+  margin:    auto;
+  padding:   2em;
+  position:  relative;
+  width:     60em;
 
-  &:hover {
-    text-shadow: 
-       1em  1em #99E0FF, 
-       2em  2em #A4FFBF, 
-       3em  3em #FFDC94, 
-       4em  4em #CCD3FF, 
-       5em  5em #99E0FF, 
-       6em  6em #A4FFBF, 
-       7em  7em #FFDC94, 
-       8em  8em #CCD3FF, 
-       9em  9em #99E0FF, 
-      10em 10em #A4FFBF, 
-      11em 11em #FFDC94,
-      12em 12em #CCD3FF;
+  input {
+    font-size:              2em;
+    display:                block;
+    outline:                none;
+    padding:                3px 5px;
+    -webkit-border-radius:  0.3em;
+    border-radius:          0.3em;
+    margin:                 2em 0;
+    width:                  100%;
+
+    .shadow-inset();
+
+    &::-webkit-input-placeholder { font-style: italic; }
   }
 }
 
@@ -105,10 +107,13 @@ h1 {
   background-repeat:      repeat;
   -webkit-border-radius:  0.5em;
   border-radius:          0.5em;
+  border:                 5px solid black;
   width:                  60em;
   margin:                 0 auto 4em;
   padding:                2em;
   position:               relative;
+  display:none;
+
   .shadow();
 
   .fields { width: 40em;
@@ -186,31 +191,29 @@ h1 {
 
 #equipment-list { margin-top: 10px;
   li {
-    font-size:         24px;
-    line-height:       1.1em;
-    padding:           12px 20px 11px 0;
-    position:          relative;
-    display:           inline-block;
-    width:             400px;
+    font-size:    24px;
+    line-height:  1.1em;
+    padding:      12px 20px 11px 0;
+    position:     relative;
+    display:      inline-block;
+    width:        400px;
 
-    &:nth-child(even){
-      float:right;
-    }
 
     .equipment {
-      padding: 10px;
-      width:             400px;
+      padding:           10px;
+      width:             390px;
       background-color:  yellow;
       .shadow-inset();
 
       &:before, &:after {
+          
           position:            absolute;
           width:               40%;
           height:              10px;
           content:             ' ';
           left:                12px;
           bottom:              12px;
-          background:          transparent;
+          background:          rgba(@shadow-color, @shadow-color, @shadow-color, 0.5);
           -webkit-transform:   skew(-5deg) rotate(-5deg);
           -moz-transform:      skew(-5deg) rotate(-5deg);
           -ms-transform:       skew(-5deg) rotate(-5deg);
@@ -233,14 +236,18 @@ h1 {
     }
 
 
-    -webkit-transition: all 0.12s ease-in;
-    transition: all 0.12s ease-in;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 
     .messy-lines();
 
     &:hover{
       -webkit-transform: rotate(0deg) scale(1.1);
       transform:         rotate(0deg) scale(1.1);
+      z-index:10;
+      .equipment {
+        &:hover { background-color:white; }
+      }
     }
 
     .check {

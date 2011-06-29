@@ -7,7 +7,7 @@
 # has been re-established
 window.Store = class Store
   constructor: (channel, @options = { bayeux : '/faye'}) ->
-    _.bindAll @, 'on_message'
+    _.bindAll @, 'on_message', 'request_auth'
 
     @channel        = '/models/' + channel
     @server_channel = '/server/models/' + channel
@@ -19,7 +19,31 @@ window.Store = class Store
     # each  collection seperated  on a  different channel  to help  simplify the
     # communication to the server.
     @bayeux.subscribe @server_channel, @on_message
-    
+    @authenticate = false
+
+    that = @
+    auth = outgoing: (message, callback) ->
+      console.log message
+      if message.channel != '/meta/subscribe'
+        return callback message
+
+      that.request_auth message, callback
+
+    @bayeux.addExtension auth
+
+  request_auth: (message, callback) ->
+    message.ext = {} unless message.ext
+  
+    that = @
+    $('#password').live 'keydown', (e) ->
+      if e.keyCode == 13
+        message.ext.username = $('#username').val();
+        message.ext.password = $('#password').val();
+        callback message
+        that.write { method : 'readAll' }
+
+
+
   # Publishing  a message  to the  server. If  the message  is a  `function` the
   # system will  first convert it  to json and  then send the  message. Messages
   # should be json.
@@ -32,6 +56,8 @@ window.Store = class Store
   # the  server will  have  all  the information  needed.  Once  the message  is
   # received it will need to trigger the model update.
   on_message: (message) ->
+    $('.auth').hide()
+    $('#equipmentapp').show()
     # Grab the key from the message. This will  tell us if the message was for a
     # collection update, model update, or another type of communication.
     @[message.method] message.model
