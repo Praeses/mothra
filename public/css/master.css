@@ -63,15 +63,16 @@ body {
   font-size: 24px;
   font-family: inherit;
   line-height: 1.4em;
-  width: 400px;
+  width: 380px;
   padding: 6px;
   outline: none;
+  display: block;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
   -o-box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
   box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
-  -webkit-transition: all 0.12s ease-in;
-  transition: all 0.12s ease-in;
+  -webkit-transition: all 0.5s ease-in;
+  transition: all 0.5s ease-in;
 }
 #equipmentapp .fields input::-webkit-input-placeholder, #equipmentapp .fields textarea::-webkit-input-placeholder {
   font-style: italic;
@@ -87,18 +88,6 @@ body {
 #equipmentapp .fields input:nth-child(3n+3), #equipmentapp .fields textarea:nth-child(3n+3) {
   -webkit-transform: rotate(-0.9deg);
   transform: rotate(-0.9deg);
-}
-#equipmentapp .fields input:nth-child(4n+1), #equipmentapp .fields textarea:nth-child(4n+1) {
-  background-color: #99E0FF;
-}
-#equipmentapp .fields input:nth-child(4n+2), #equipmentapp .fields textarea:nth-child(4n+2) {
-  background-color: #A4FFBF;
-}
-#equipmentapp .fields input:nth-child(4n+3), #equipmentapp .fields textarea:nth-child(4n+3) {
-  background-color: #FFDC94;
-}
-#equipmentapp .fields input:nth-child(4n+4), #equipmentapp .fields textarea:nth-child(4n+4) {
-  background-color: #CCD3FF;
 }
 #equipmentapp .fields input:nth-child(5n+1), #equipmentapp .fields textarea:nth-child(5n+1) {
   -webkit-border-radius: 1em 4em 1em 4em;
@@ -123,27 +112,62 @@ body {
 #equipmentapp .fields input:focus, #equipmentapp .fields textarea:focus {
   -webkit-border-radius: 0.3em;
   border-radius: 0.3em;
-  background-color: #FFF;
   -webkit-transform: rotate(0deg);
   transform: rotate(0deg);
 }
 #create-equipment {
-  width: 420px;
   margin: 0 auto 40px;
   position: absolute;
-  top: -540px;
-  height: 580px;
+  top: -560px;
   display: inline-block;
   display: none;
   left: 290px;
   z-index: 100;
-  -webkit-transition: top 0.12s ease-in;
+  -webkit-transition: top 0.5s ease-in;
   -moz-transition: top 0.5s ease-in;
   -o-transition: top 0.5s ease-in;
   transition: top 0.5s ease-in;
 }
 #create-equipment:hover {
-  top: 10px;
+  top: -80px;
+}
+#create-equipment .fields {
+  position: relative;
+  padding: 10px;
+  width: 390px;
+  background-color: yellow;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
+  -o-box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 5px 9px 5px, rgba(0, 0, 0, 0.3) 1px 1px 1px inset;
+}
+#create-equipment .fields:before, #create-equipment .fields:after {
+  position: absolute;
+  width: 40%;
+  height: 10px;
+  content: ' ';
+  left: 12px;
+  bottom: 12px;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-transform: skew(-5deg) rotate(-5deg);
+  -moz-transform: skew(-5deg) rotate(-5deg);
+  -ms-transform: skew(-5deg) rotate(-5deg);
+  -o-rotatetransform: skew(-5deg) rotate(-5deg);
+  transform: skew(-5deg) rotate(-5deg deg);
+  -moz-box-shadow: rgba(0, 0, 0, 0.3) 5px 9px 5px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.3) 5px 9px 5px;
+  -o-box-shadow: rgba(0, 0, 0, 0.3) 5px 9px 5px;
+  box-shadow: rgba(0, 0, 0, 0.3) 5px 9px 5px;
+  z-index: -1;
+}
+#create-equipment .fields:after {
+  left: auto;
+  right: 12px;
+  -webkit-transform: skew(5deg) rotate(5deg);
+  -moz-transform: skew(5deg) rotatete(5deg);
+  -ms-transform: skew(5deg) rotate(5deg);
+  -o-transform: skew(transform 5deg) rotate(5deg);
+  transform: skew(5deg) rotate(5deg);
 }
 #create-equipment span {
   left: 50%;

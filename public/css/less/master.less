@@ -122,23 +122,23 @@ body {
       font-size:           24px;
       font-family:         inherit;
       line-height:         1.4em;
-      width:               400px;
+      width:               380px;
       padding:             6px;
       outline:             none;
+      display: block;
       .shadow-inset();
 
       &::-webkit-input-placeholder { font-style: italic; }
   
-      -webkit-transition: all 0.12s ease-in;
-      transition: all 0.12s ease-in;
+      -webkit-transition:  all 0.5s ease-in;
+      transition:          all 0.5s ease-in;
 
       .messy-lines();
-      .messy-input-colors();
       .messy-borders();
+
       &:focus{
         -webkit-border-radius:  0.3em;
         border-radius:          0.3em;
-        background-color:       #FFF;
         -webkit-transform:      rotate(0deg);
         transform:              rotate(0deg);
       }
@@ -148,22 +148,55 @@ body {
 }
 
 #create-equipment {
-  width:             420px;
-  margin:            0 auto 40px;
-  position:          absolute;
-  top:               -540px;
-  height:            580px;
-  display:           inline-block;
-  display:           none;
-  left:              290px;
-  z-index:           100;
+  margin:    0 auto 40px;
+  position:  absolute;
+  top:       -560px;
+  display:   inline-block;
+  display:   none;
+  left:      290px;
+  z-index:   100;
 
-  -webkit-transition:  top 0.12s ease-in;
+  -webkit-transition:  top 0.5s ease-in;
   -moz-transition:     top 0.5s ease-in;
   -o-transition:       top 0.5s ease-in;
   transition:          top 0.5s ease-in;
   
-  &:hover{ top:10px; }
+  &:hover{ top:-80px; }
+
+  .fields { 
+    position:          relative;
+    padding:           10px;
+    width:             390px;
+    background-color:  yellow;
+    .shadow-inset();
+
+    &:before, &:after {
+        position:            absolute;
+        width:               40%;
+        height:              10px;
+        content:             ' ';
+        left:                12px;
+        bottom:              12px;
+        background:          rgba(@shadow-color, @shadow-color, @shadow-color, 0.5);
+        -webkit-transform:   skew(-5deg) rotate(-5deg);
+        -moz-transform:      skew(-5deg) rotate(-5deg);
+        -ms-transform:       skew(-5deg) rotate(-5deg);
+        -o-rotatetransform:  skew(-5deg) rotate(-5deg);
+        transform:           skew(-5deg) rotate(-5degdeg);
+        .shadow();
+        z-index:             -1;
+      }
+
+      &:after {
+        left:               auto;
+        right:              12px;
+        -webkit-transform:  skew(5deg) rotate(5deg);
+        -moz-transform:     skew(5deg) rotatete(5deg);
+        -ms-transform:      skew(5deg) rotate(5deg);
+        -o-transform:       skew(transform5deg) rotate(5deg);
+        transform:          skew(5deg) rotate(5deg);
+      }
+  }
 
   span {
     left:         50%;
