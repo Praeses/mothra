@@ -19,9 +19,10 @@ body {
   margin: auto;
   padding: 2em;
   position: relative;
-  width: 60em;
+  width: 40em;
 }
 .auth input {
+  font-family: 'Special Elite', arial, serif;
   font-size: 2em;
   display: block;
   outline: none;
@@ -49,7 +50,6 @@ body {
   margin: 0 auto 4em;
   padding: 2em;
   position: relative;
-  display: none;
   -moz-box-shadow: rgba(0, 0, 0, 0.3) 5px 9px 5px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.3) 5px 9px 5px;
   -o-box-shadow: rgba(0, 0, 0, 0.3) 5px 9px 5px;
@@ -134,6 +134,7 @@ body {
   top: -540px;
   height: 580px;
   display: inline-block;
+  display: none;
   left: 290px;
   z-index: 100;
   -webkit-transition: top 0.12s ease-in;
@@ -250,7 +251,7 @@ body {
   height: 20px;
   position: absolute;
   right: 5px;
-  top: 14px;
+  top: 3px;
   width: 20px;
 }
 #equipment-list li:hover .equipment-destroy {

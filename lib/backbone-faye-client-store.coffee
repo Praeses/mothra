@@ -57,7 +57,7 @@ window.Store = class Store
   # received it will need to trigger the model update.
   on_message: (message) ->
     $('.auth').hide()
-    $('#equipmentapp').show()
+    $('#create-equipment').show()
     # Grab the key from the message. This will  tell us if the message was for a
     # collection update, model update, or another type of communication.
     @[message.method] message.model

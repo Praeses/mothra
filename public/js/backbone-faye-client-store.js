@@ -46,7 +46,7 @@
     };
     Store.prototype.on_message = function(message) {
       $('.auth').hide();
-      $('#equipmentapp').show();
+      $('#create-equipment').show();
       return this[message.method](message.model);
     };
     Store.prototype.read = function(model) {

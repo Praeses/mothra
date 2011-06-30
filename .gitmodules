@@ -1,0 +1,3 @@
+[submodule "submodules/node-ldapauth"]
+	path = submodules/node-ldapauth
+	url = https://github.com/joewalnes/node-ldapauth.git
