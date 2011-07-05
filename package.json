@@ -21,13 +21,13 @@
     "hiredis":      "0.1.10",
     "underscore":   "1.1.6",
     "backbone":     "0.3.3",
-    "redis":        "0.6.0",
-    "less":         "1.1.2"
+    "redis":        "0.6.0"
   },
   "devDependencies": {
     "coffee-script":  "1.1.1",
     "docco":          "0.3.0",
-    "jasmine-node":   "1.0.6"
+    "jasmine-node":   "1.0.6",
+    "less":           "1.1.2"
   },
   "os":       ["linux", "macos"],
   "cpu":      ["x86", "x86_64"],

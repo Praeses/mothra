@@ -1,5 +1,5 @@
 (function() {
-  var App, AppView, Equipment, EquipmentList, EquipmentView, Inventory;
+  var AppView, Equipment, EquipmentList, EquipmentView;
   Equipment = Backbone.Model.extend({
     checkout: function(user) {
       return this.save({
@@ -20,7 +20,6 @@
       return equipment.get('order');
     }
   });
-  Inventory = new EquipmentList();
   EquipmentView = Backbone.View.extend({
     tagName: 'li',
     template: _.template($('#item-template').html()),
@@ -31,7 +30,7 @@
       'click .equipment-destroy': 'destroy'
     },
     initialize: function() {
-      _.bindAll(this, 'render', 'close', 'setContent', 'destroy');
+      _.bindAll(this, 'render', 'close', 'setContent', 'destroy', 'set_input');
       this.model.bind('change', this.setContent);
       return this.model.view = this;
     },
@@ -41,24 +40,22 @@
       return this;
     },
     setContent: function() {
-      this.$('.equipment-asset_tag_number').text(this.model.get('asset_tag_number'));
-      this.$('.equipment-make').text(this.model.get('make'));
-      this.$('.equipment-model_number').text(this.model.get('model_number'));
-      this.$('.equipment-serial_number').text(this.model.get('serial_number'));
-      this.$('.equipment-who_has_it').text(this.model.get('who_has_it'));
-      this.$('.equipment-notes').text(this.model.get('notes'));
-      this.asset_tag_number = this.$('.asset_tag_number');
-      this.make = this.$('.make');
-      this.model_number = this.$('.model_number');
-      this.serial_number = this.$('.serial_number');
-      this.who_has_it = this.$('.who_has_it');
-      this.notes = this.$('.notes');
-      this.asset_tag_number.val(this.model.get('asset_tag_number'));
-      this.make.val(this.model.get('make'));
-      this.model_number.val(this.model.get('model_number'));
-      this.serial_number.val(this.model.get('serial_number'));
-      this.who_has_it.val(this.model.get('who_has_it'));
-      return this.notes.val(this.model.get('notes'));
+      var tag, tags, _i, _len, _results;
+      tags = ['asset_tag_number', 'make', 'model_number', 'serial_number', 'who_has_it', 'notes'];
+      _results = [];
+      for (_i = 0, _len = tags.length; _i < _len; _i++) {
+        tag = tags[_i];
+        _results.push(this.set_input(tag));
+      }
+      return _results;
+    },
+    set_input: function(name) {
+      var end, start, _ref, _ref2;
+      this[name] = this.$("." + name);
+      _ref = [this[name].selectionStart, this[name].selectionEnd], start = _ref[0], end = _ref[1];
+      this[name].val(this.model.get(name));
+      this.$(".equipment-" + name).text(this.model.get(name));
+      return _ref2 = [start, end], this[name].selectionStart = _ref2[0], this[name].selectionEnd = _ref2[1], _ref2;
     },
     toggleDone: function() {
       return this.model.toggle();
@@ -109,8 +106,7 @@
       this.who_has_it = this.$('#who_has_it');
       Inventory.bind('add', this.addOne);
       Inventory.bind('refresh', this.addAll);
-      Inventory.bind('all', this.render);
-      return Inventory.fetch();
+      return Inventory.bind('all', this.render);
     },
     addOne: function(equipment) {
       var view;
@@ -150,23 +146,8 @@
       this.serial_number.val('');
       this.notes.val('');
       return this.who_has_it.val('');
-    },
-    showTooltip: function(e) {
-      var show, tooltip, val;
-      tooltip = this.$('.ui-tooltip-top');
-      val = this.input.val();
-      tooltip.hide();
-      if (this.tooltipTimeout) {
-        clearTimeout(this.tooltipTimeout);
-      }
-      if (val === '' || val === this.input.attr('placeholder')) {
-        return null;
-      }
-      show = function() {
-        return tooltip.show().show();
-      };
-      return this.tooltipTimeout = _.delay(show, 1000);
     }
   });
-  App = new AppView;
+  window.Inventory = new EquipmentList();
+  window.App = new AppView;
 }).call(this);
