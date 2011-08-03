@@ -2,7 +2,9 @@
 # ==========
 # After many years terrorizing people, destroying buildings and cities, battling
 # the  greatest monsters  of all  time,  Mothra decided  to retire  and take  it
-# easy......as an inventory specialist
+# easy......as an inventory specialist. He likes this job and it works exactally
+# how he expectes it to work. There are no issues. If you think you find any you
+# can bring it up with *MOTHRA*......
 
 # Requiring the libs we are going to use for the app. To install theses libs run
 # `npm install` and they will be installed using the package.json. Faye is a lib

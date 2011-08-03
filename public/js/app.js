@@ -50,12 +50,9 @@
       return _results;
     },
     set_input: function(name) {
-      var end, start, _ref, _ref2;
       this[name] = this.$("." + name);
-      _ref = [this[name].selectionStart, this[name].selectionEnd], start = _ref[0], end = _ref[1];
       this[name].val(this.model.get(name));
-      this.$(".equipment-" + name).text(this.model.get(name));
-      return _ref2 = [start, end], this[name].selectionStart = _ref2[0], this[name].selectionEnd = _ref2[1], _ref2;
+      return this.$(".equipment-" + name).text(this.model.get(name));
     },
     toggleDone: function() {
       return this.model.toggle();

@@ -9,24 +9,25 @@
 # Connecting the store to the outside world
 window.Store = class Store
   constructor: (channel, @options = { bayeux : '/faye'}) ->
-    # Change the scope of `this` for the on_message method
     _.bindAll @, 'on_message'
 
-    # There are two channels.  One for communication from the client to the
-    # server and another from the server back to the client.
+    # There  are two  channels. One  for communication  from the  client to  the
+    # server and another from  the server back to the client. If  we do not have
+    # this seperation between  the client and the  server all we will  do is see
+    # how fast the app really is, because it will be in an infinate loop.
     @channel        = '/models/' + channel
     @server_channel = '/server/models/' + channel
 
-    # Setup the Faye client.  By default it will listen on `/faye`.
-    # All communication will go through this faye client.
+    # Setup  the Faye  client. By  default it  will listen  on `/faye`.  You can
+    # change  this  by  passing  in  a different  option  into  the  store.  All
+    # communication will go through this faye client.
     @bayeux = new Faye.Client @options.bayeux
 
     # To enable authentication we include the Auth class with the store. It is a
     # faye extention that will verify the  user and allow communication over the
-    # faye pipe
+    # faye pipe. Enabling the auth is simple.  All that is needed is to bind the
+    # socket, subscription and provide a callback when the auth fails.
     @auth = new Auth
-    # Enabling the  auth is simple.  All that is needed  is to bind  the socket,
-    # subscription and provide a callback when the auth fails
     @auth.bind @bayeux, @server_channel, @on_message
 
   # *write* will publish a message on  the model channel to the server. Messages
