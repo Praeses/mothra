@@ -39,6 +39,9 @@ class ActiveDirectory
           message.error = err
         else if !result
           message.error = 'Invalid stuff dude'
+
+        # Again passing through the callback chain
+        callback message
     else
       message.error = 'need username and password'
   
